@@ -21,7 +21,7 @@ Legend: ✅ done & working · 🚧 in progress · ⏳ queued · ⚠️ blocked/h
 |---|-------|------|-----------|--------|
 | 6 | [`coqui/XTTS-v2`](https://huggingface.co/coqui/XTTS-v2) | Autoregressive + voice cloning | **base does NOT support `fa`** (see skill) | ❌ |
 | 7 | [`alikhabazian/XTTS_Persian`](https://huggingface.co/alikhabazian/XTTS_Persian) | XTTS-v2 fa finetune (5.7 GB) | **incomplete upload** — missing tokenizer vocab (10120 vs 6681 tokens), README empty | ❌ |
-| 8 | [`Thomcles/Chatterbox-TTS-Persian-Farsi`](https://huggingface.co/Thomcles/Chatterbox-TTS-Persian-Farsi) | Chatterbox fa finetune | **GATED** (needs HF token) + T3-only + slow on CPU | ⛔ blocked on access |
+| 8 | [`Thomcles/Chatterbox-TTS-Persian-Farsi`](https://huggingface.co/Thomcles/Chatterbox-TTS-Persian-Farsi) | Chatterbox fa finetune (voice cloning) | GATED (HF token) + ~20s/sentence on CPU | ✅ (only working heavy model) |
 
 ## Why this order
 
@@ -50,3 +50,4 @@ Results table (filled as we go):
 | kamtera-male-vits | tbd (your ear) | espeak fa phonemizer | tbd | 0.23 | male voice, 22 kHz |
 | karim-gptinformal-vits | tbd (your ear) | espeak fa phonemizer | tbd | 0.24 | informal/colloquial female, 24 kHz |
 | seyedali-mms | tbd (your ear) | MMS tokenizer | tbd | 0.18 | MMS finetune via transformers, 16 kHz |
+| chatterbox-persian | tbd (your ear) | multilingual tokenizer | tbd | ~4 (slow) | heavy voice-cloning finetune, 24 kHz, gated |

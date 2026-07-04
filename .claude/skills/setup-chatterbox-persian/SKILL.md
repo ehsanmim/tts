@@ -24,35 +24,47 @@ To unblock:
 2. Create a read token: https://huggingface.co/settings/tokens
 3. Expose it to the session: `export HF_TOKEN=hf_xxx` (or `huggingface-cli login`).
 
-## Assembly (once access is granted)
+## Assembly (VERIFIED WORKING) ✅
 
-The finetune is **only the T3 stage** — you need the rest of Chatterbox from the
-base repo, then swap in `t3_fa.safetensors`:
+The finetune is **only the T3 stage** of the **multilingual** Chatterbox
+(`text_emb` = 2454 tokens → `ChatterboxMultilingualTTS`, not the English one).
+Load the base multilingual model, then swap in `t3_fa.safetensors`.
 
 ```bash
-.venvs/coqui/bin/pip install chatterbox-tts    # or resemble's package
+python3 -m venv .venvs/chatterbox
+.venvs/chatterbox/bin/pip install chatterbox-tts
 ```
 
-```python
-from chatterbox.tts import ChatterboxTTS
-model = ChatterboxTTS.from_pretrained(device="cpu")   # pulls base ResembleAI/chatterbox
-# replace the T3 weights with the Farsi finetune:
-from safetensors.torch import load_file
-from huggingface_hub import hf_hub_download
-t3 = load_file(hf_hub_download("Thomcles/Chatterbox-TTS-Persian-Farsi", "t3_fa.safetensors"))
-model.t3.load_state_dict(t3, strict=False)
-wav = model.generate("سلام دنیا", audio_prompt_path="ref_fa.wav")   # needs a Persian reference clip
+Run (needs the token in the env, **never** commit it):
+
+```bash
+HF_TOKEN=hf_... .venvs/chatterbox/bin/python scripts/run_chatterbox_persian.py [--smoke]
+python3 scripts/make_demo.py chatterbox-persian
 ```
 
-(Exact API depends on the installed `chatterbox-tts` version — verify attribute
-names for the T3 submodule.)
+### Two gotchas that had to be patched (see `scripts/run_chatterbox_persian.py`)
 
-## ⚠️ Blocker 2 — CPU speed
+1. **Language gate:** `generate()` validates `language_id` against
+   `SUPPORTED_LANGUAGES`, which has no `fa`. Add it before use:
+   `chatterbox.mtl_tts.SUPPORTED_LANGUAGES["fa"] = "Persian"`.
+2. **Chinese segmenter download:** `MTLTokenizer.__init__` eagerly builds a
+   `ChineseCangjieConverter` (pkuseg) that downloads a model and **fails a hash
+   check behind the proxy**. It's only used for `zh`, so stub it:
+   `chatterbox.models.tokenizers.tokenizer.ChineseCangjieConverter = <noop>`.
 
-Chatterbox is a ~0.5B Llama-backbone autoregressive model. On this **CPU-only**
-box expect **minutes per sentence**. Realistic only with a GPU.
+T3 loads with **0 missing / 0 unexpected** keys. `[fa]` isn't a single token (it
+splits into subtokens), but that matches how the finetune was trained, so output
+is fine. A **Persian reference clip** is required for voice conditioning — we
+reuse `docs/audio/kamtera-female-vits/02.wav`.
+
+## CPU speed
+
+Chatterbox is a ~0.5B Llama-backbone autoregressive model, but in practice it
+ran at **~20 s per sentence** on this 4-core CPU (not minutes) — usable for a
+small benchmark, still far slower than the VITS models (which are <1 s).
 
 ## Status
 
-⏳ Not run — **gated** (no HF token in this environment) + very slow on CPU.
-Resume once an HF token with access is provided.
+✅ **Working** with an HF token. Sample generated for sentences 01–05 (voice
+cloned from a Persian reference clip). The only heavy/cloning model in the set
+that actually produces Persian.

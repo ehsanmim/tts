@@ -50,6 +50,16 @@
       "sample_rate": 16000,
       "cpu_rtf": "0.18",
       "notes": "MMS-style VITS finetune loaded via transformers (no espeak). Same code path as mms-tts-fas. 16 kHz."
+    },
+    {
+      "id": "chatterbox-persian",
+      "name": "Thomcles — Chatterbox-TTS-Persian-Farsi",
+      "hf_url": "https://huggingface.co/Thomcles/Chatterbox-TTS-Persian-Farsi",
+      "engine": "chatterbox-tts (multilingual, T3 fa finetune)",
+      "voice": "voice-cloned from a Persian reference clip",
+      "sample_rate": 24000,
+      "cpu_rtf": "~4 (slow)",
+      "notes": "Heavy autoregressive model (~0.5B). GATED repo (needs HF token). ~20s/sentence on CPU. Voice cloning — conditioned on a Persian reference clip. Non-commercial."
     }
   ]
 }
