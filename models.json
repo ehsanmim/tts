@@ -100,6 +100,16 @@
       "sample_rate": 24000,
       "cpu_rtf": "~15 (~90s/sentence)",
       "notes": "F5-TTS flow-matching finetune — ships its own char vocab (complete). Zero-shot cloning, Apache-2.0. ~90s/sentence on CPU. A leading open naturalness candidate for Persian."
+    },
+    {
+      "id": "f5-persian-tuned",
+      "name": "F5-TTS Persian — tuned",
+      "hf_url": "https://huggingface.co/Lumos675/F5_TTS_Persian",
+      "engine": "F5-TTS v1 + Persian text normalization",
+      "voice": "cloned from a Persian reference clip",
+      "sample_rate": 24000,
+      "cpu_rtf": "~22 (~2min/sentence)",
+      "notes": "Same model as f5-persian, TUNED: numbers/dates normalized to Persian words (phone numbers digit-by-digit), nfe_step 32->48. Fixes the digit/date mispronunciations and steadies output."
     }
   ]
 }

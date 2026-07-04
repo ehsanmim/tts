@@ -54,11 +54,20 @@ f5.infer(ref_file="ref_fa.wav", ref_text="<transcript of ref>",
          gen_text="سلام دنیا", file_wave="out.wav", nfe_step=32)
 ```
 
-## Tuning
+## Tuning (see scripts/run_f5_persian_tuned.py)
 
-- `nfe_step` (default 32): more steps = better quality, slower. Try 16 for speed, 48 for quality.
-- `speed`, `cfg_strength` (2.0), `sway_sampling_coef` (-1) affect pacing/adherence.
-- Reference clip + accurate `ref_text` strongly drive voice + pronunciation.
+The tuned variant (`docs/audio/f5-persian-tuned/`) fixes the common Persian
+mispronunciations:
+
+1. **Text normalization (biggest win):** raw digits are the #1 mispronunciation
+   source. `num2fawords` converts numbers → Persian words; phone numbers are read
+   digit-by-digit, dates part-by-part. `pip install num2fawords`.
+2. **`nfe_step` 32 → 48:** more flow-matching steps = steadier pronunciation
+   (slower: ~2 min/sentence). Try 48–64 for quality, 16 for speed.
+3. **`cfg_strength`** (2.0): raise for more text adherence; too high over-articulates.
+4. **Reference clip + accurate `ref_text`** strongly drive voice + pronunciation —
+   a clean, natural (ideally human) Persian reference helps most.
+5. `speed`, `sway_sampling_coef` (-1) affect pacing/trajectory.
 
 ## Status
 

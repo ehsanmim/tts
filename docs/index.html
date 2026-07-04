@@ -54,7 +54,7 @@
 <body>
 <header>
   <h1>Persian TTS Quality Comparison</h1>
-  <p class="sub">10 model(s) · 5 sentences · same text, side by side.
+  <p class="sub">11 model(s) · 5 sentences · same text, side by side.
   Source list: <a href="https://huggingface.co/models?pipeline_tag=text-to-speech&language=fa&sort=trending" target="_blank" rel="noopener">Hugging Face fa TTS</a></p>
 </header>
 <main>
@@ -159,6 +159,16 @@
           <dt>CPU RTF</dt><dd>~15 (~90s/sentence)</dd>
         </dl>
         <p class="notes">F5-TTS flow-matching finetune — ships its own char vocab (complete). Zero-shot cloning, Apache-2.0. ~90s/sentence on CPU. A leading open naturalness candidate for Persian.</p>
+      </div>
+      <div class="card">
+        <h3><a href="https://huggingface.co/Lumos675/F5_TTS_Persian" target="_blank" rel="noopener">F5-TTS Persian — tuned</a></h3>
+        <dl>
+          <dt>Engine</dt><dd>F5-TTS v1 + Persian text normalization</dd>
+          <dt>Voice</dt><dd>cloned from a Persian reference clip</dd>
+          <dt>Sample rate</dt><dd>24000 Hz</dd>
+          <dt>CPU RTF</dt><dd>~22 (~2min/sentence)</dd>
+        </dl>
+        <p class="notes">Same model as f5-persian, TUNED: numbers/dates normalized to Persian words (phone numbers digit-by-digit), nfe_step 32-&gt;48. Fixes the digit/date mispronunciations and steadies output.</p>
       </div></div>
   <h2>Side-by-side samples</h2>
   
@@ -205,6 +215,10 @@
           <div class="model-row">
             <span class="model-name">Lumos675 — F5-TTS Persian</span>
             <audio controls preload="none" src="audio/f5-persian/01.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">F5-TTS Persian — tuned</span>
+            <audio controls preload="none" src="audio/f5-persian-tuned/01.wav"></audio>
           </div></div>
       </section>
       <section class="sentence">
@@ -250,6 +264,10 @@
           <div class="model-row">
             <span class="model-name">Lumos675 — F5-TTS Persian</span>
             <audio controls preload="none" src="audio/f5-persian/02.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">F5-TTS Persian — tuned</span>
+            <audio controls preload="none" src="audio/f5-persian-tuned/02.wav"></audio>
           </div></div>
       </section>
       <section class="sentence">
@@ -295,6 +313,10 @@
           <div class="model-row">
             <span class="model-name">Lumos675 — F5-TTS Persian</span>
             <audio controls preload="none" src="audio/f5-persian/03.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">F5-TTS Persian — tuned</span>
+            <audio controls preload="none" src="audio/f5-persian-tuned/03.wav"></audio>
           </div></div>
       </section>
       <section class="sentence">
@@ -340,6 +362,10 @@
           <div class="model-row">
             <span class="model-name">Lumos675 — F5-TTS Persian</span>
             <audio controls preload="none" src="audio/f5-persian/04.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">F5-TTS Persian — tuned</span>
+            <audio controls preload="none" src="audio/f5-persian-tuned/04.wav"></audio>
           </div></div>
       </section>
       <section class="sentence">
@@ -385,6 +411,10 @@
           <div class="model-row">
             <span class="model-name">Lumos675 — F5-TTS Persian</span>
             <audio controls preload="none" src="audio/f5-persian/05.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">F5-TTS Persian — tuned</span>
+            <audio controls preload="none" src="audio/f5-persian-tuned/05.wav"></audio>
           </div></div>
       </section>
 </main>
