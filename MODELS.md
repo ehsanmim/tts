@@ -16,6 +16,17 @@ Legend: ✅ done & working · 🚧 in progress · ⏳ queued · ⚠️ blocked/h
 | 6 | [`karim23657/...GPTInformal-Persian-vits`](https://huggingface.co/karim23657/persian-tts-female-GPTInformal-Persian-vits) | VITS | Coqui TTS | female (informal) | ✅ fast | ✅ |
 | 7 | [`MahtaFetrat/Mana-Persian-Piper`](https://huggingface.co/MahtaFetrat/Mana-Persian-Piper) | VITS (Piper/ONNX) | piper-tts | single (ManaTTS) | ✅ fastest | ✅ |
 
+## SOTA / "ElevenLabs-grade" tier (GPU-class)
+
+| Model | Type | Persian? | Runnable here? |
+|-------|------|----------|----------------|
+| [`fishaudio/s2-pro`](https://huggingface.co/fishaudio/s2-pro) | Dual-AR LLM TTS (`fish_qwen3_omni`), 9.12 GB, SGLang | ✅ `fa` | ❌ **GPU/SGLang only** — can't run on this CPU box; see [skill](.claude/skills/setup-fishaudio-s2-pro/SKILL.md) |
+| [`IMS-Toucan / ToucanTTS`](https://github.com/DigitalPhonetics/IMS-Toucan) | Multilingual (7000+ langs), zero-shot cloning | ✅ `pes` | 🚧 CPU-capable but heavy research setup (in progress) |
+
+**Note on quality ceiling:** true ElevenLabs-grade Persian currently means a
+GPU-class model (fishaudio/s2-pro) or a paid API (ElevenLabs, Fish Audio). On a
+CPU-only box the practical best is **Chatterbox-Persian** / **Mana-Piper**.
+
 ## Stretch goals (heavier — slow on CPU, better on GPU)
 
 | # | Model | Type | Why heavy | Status |
