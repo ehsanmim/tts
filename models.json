@@ -70,6 +70,16 @@
       "sample_rate": 22050,
       "cpu_rtf": "~0.03 (very fast)",
       "notes": "Piper voice trained on the curated ManaTTS corpus. Clean pronunciation, deterministic, ~0.2s/sentence on CPU. Ready-made ONNX — trivial to run. MIT."
+    },
+    {
+      "id": "toucan-persian",
+      "name": "IMS-Toucan — ToucanTTS (pes)",
+      "hf_url": "https://github.com/DigitalPhonetics/IMS-Toucan",
+      "engine": "ToucanTTS (flow-matching, multilingual) + espeak-ng",
+      "voice": "zero-shot cloned from a Persian reference clip",
+      "sample_rate": 24000,
+      "cpu_rtf": "~1 (seconds/sentence)",
+      "notes": "SOTA multilingual model (7000+ langs), Persian id 'pes'. Flow-matching decoder + zero-shot voice cloning. Runs on CPU (~5-8s/sentence). Research-grade quality."
     }
   ]
 }

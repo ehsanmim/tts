@@ -21,7 +21,7 @@ Legend: ✅ done & working · 🚧 in progress · ⏳ queued · ⚠️ blocked/h
 | Model | Type | Persian? | Runnable here? |
 |-------|------|----------|----------------|
 | [`fishaudio/s2-pro`](https://huggingface.co/fishaudio/s2-pro) | Dual-AR LLM TTS (`fish_qwen3_omni`), 9.12 GB, SGLang | ✅ `fa` | ❌ **GPU/SGLang only** — can't run on this CPU box; see [skill](.claude/skills/setup-fishaudio-s2-pro/SKILL.md) |
-| [`IMS-Toucan / ToucanTTS`](https://github.com/DigitalPhonetics/IMS-Toucan) | Multilingual (7000+ langs), zero-shot cloning | ✅ `pes` | 🚧 CPU-capable but heavy research setup (in progress) |
+| [`IMS-Toucan / ToucanTTS`](https://github.com/DigitalPhonetics/IMS-Toucan) | Multilingual (7000+ langs), flow-matching, zero-shot cloning | ✅ `pes` | ✅ **runs on CPU** (~5-8s/sentence) — best CPU-runnable quality |
 
 **Note on quality ceiling:** true ElevenLabs-grade Persian currently means a
 GPU-class model (fishaudio/s2-pro) or a paid API (ElevenLabs, Fish Audio). On a
@@ -64,3 +64,4 @@ Results table (filled as we go):
 | seyedali-mms | tbd (your ear) | MMS tokenizer | tbd | 0.18 | MMS finetune via transformers, 16 kHz |
 | chatterbox-persian | tbd (your ear) | multilingual tokenizer | tbd | ~4 (slow) | heavy voice-cloning finetune, 24 kHz, gated |
 | mana-piper | tbd (your ear) | espeak-ng (Piper) | tbd | ~0.03 (fastest) | Piper on ManaTTS corpus, clean, 22 kHz |
+| toucan-persian | tbd (your ear) | espeak-ng (pes) | tbd | ~1 | SOTA multilingual, flow-matching + cloning, 24 kHz, best CPU quality |
