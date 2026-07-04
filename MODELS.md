@@ -20,7 +20,8 @@ Legend: ✅ done & working · 🚧 in progress · ⏳ queued · ⚠️ blocked/h
 | # | Model | Type | Why heavy | Status |
 |---|-------|------|-----------|--------|
 | 6 | [`coqui/XTTS-v2`](https://huggingface.co/coqui/XTTS-v2) | Autoregressive + voice cloning | **base does NOT support `fa`** (see skill) | ❌ |
-| 7 | [`facebook/mms-tts` multilingual](https://huggingface.co/facebook/mms-tts) | large multilingual | big | ⚠️ |
+| 7 | [`alikhabazian/XTTS_Persian`](https://huggingface.co/alikhabazian/XTTS_Persian) | XTTS-v2 fa finetune (5.7 GB) | **incomplete upload** — missing tokenizer vocab (10120 vs 6681 tokens), README empty | ❌ |
+| 8 | [`Thomcles/Chatterbox-TTS-Persian-Farsi`](https://huggingface.co/Thomcles/Chatterbox-TTS-Persian-Farsi) | Chatterbox fa finetune | heavy, unproven, very slow on CPU | ⏳ not yet tried |
 
 ## Why this order
 

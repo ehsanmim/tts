@@ -43,7 +43,25 @@ tts = TTS("tts_models/multilingual/multi-dataset/xtts_v2")   # 58 built-in speak
 
 Downloads/loads fine (~1.8 GB); the failure is purely the language gate.
 
+## Attempted finetune: alikhabazian/XTTS_Persian — also blocked
+
+https://huggingface.co/alikhabazian/XTTS_Persian ships a 5.7 GB finetune whose
+`config.json` **does** list `fa`. But it is **incomplete for inference**:
+
+- The GPT text-vocab was expanded to **10120 tokens** (checkpoint
+  `gpt.text_embedding` = `[10120, 1024]`), but the repo **does not include the
+  matching `vocab.json` tokenizer** — only `config.json` + `best_model.pth`.
+- With the base coqui vocab (6681 tokens) the shapes mismatch
+  (`size mismatch for gpt.text_embedding.weight: [10120] vs [6681]`), and even if
+  forced, Persian text would tokenize against the wrong vocab → garbled output.
+- README is empty (`license: mit` only) — no usage/tokenizer info.
+
+Conclusion: **not reproducible as published.** A usable XTTS-fa needs the repo to
+also publish its extended tokenizer. `scripts/run_xtts_persian.py` records the
+exact (blocked) loading path for the next attempt.
+
 ## Status
 
-❌ Not usable for Persian in base form. Documented so we don't retry it.
-See `scripts/run_xtts_v2.py` for the exact (failing) call.
+❌ Base XTTS-v2: `fa` unsupported.
+❌ alikhabazian/XTTS_Persian finetune: incomplete upload (missing tokenizer).
+Both documented so we don't retry blindly.
