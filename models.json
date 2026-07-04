@@ -1,0 +1,25 @@
+{
+  "sample_text_file": "sample_texts/sentences.txt",
+  "models": [
+    {
+      "id": "mms-tts-fas",
+      "name": "Meta MMS — mms-tts-fas",
+      "hf_url": "https://huggingface.co/facebook/mms-tts-fas",
+      "engine": "🤗 transformers (VITS)",
+      "voice": "single speaker (male-ish)",
+      "sample_rate": 16000,
+      "cpu_rtf": "0.2–0.3",
+      "notes": "Zero-friction setup, no espeak needed. Reads digits one-by-one. Non-commercial license."
+    },
+    {
+      "id": "kamtera-female-vits",
+      "name": "Kamtera — persian-tts-female-vits",
+      "hf_url": "https://huggingface.co/Kamtera/persian-tts-female-vits",
+      "engine": "Coqui TTS (VITS) + espeak-ng",
+      "voice": "single female speaker",
+      "sample_rate": 24000,
+      "cpu_rtf": "0.24",
+      "notes": "Coqui-format VITS. Needs espeak-ng phonemizer; runs in an isolated venv. 24 kHz."
+    }
+  ]
+}
