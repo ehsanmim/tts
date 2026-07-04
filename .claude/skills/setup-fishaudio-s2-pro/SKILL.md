@@ -13,29 +13,40 @@ description: Set up fishaudio/s2-pro — a SOTA (ElevenLabs-grade) multilingual 
 - **Quality tier:** leading / near-commercial (this is the "ElevenLabs-grade" target)
 - **License:** fish-audio-research-license (research; see LICENSE.md)
 
-## ⛔ Why it does NOT run in this benchmark's environment
+## ✅ It DOES run on CPU (via the native PyTorch path) — just very slow
 
-This box is **CPU-only with ~7 GB free disk**. S2 Pro is designed for the
-**SGLang** streaming engine, which is **CUDA/GPU-only** (CUDA graph replay,
-paged KV cache, RadixAttention). There is no practical CPU inference path:
-- The 9.12 GB download alone doesn't fit the free disk here.
-- Even loaded on CPU, a ~4–5B dual-AR LLM generating audio tokens would be
-  minutes+ per sentence, and the audio-codec decode + Dual-AR loop are custom to
-  fish-speech (not a plain `transformers` `generate`).
+SGLang is only for **GPU-accelerated serving**. fish-speech also ships a native
+**PyTorch two-stage path** (`fish_speech/models/text2semantic/inference.py`
+generates audio tokens; `models/dac` decodes them) that runs on **CPU**.
 
-So it is **documented, not benchmarked** here. Run it where there's a GPU.
+Measured here (4-core CPU, 15 GB RAM + swap): **~34 minutes for one sentence**
+(132 tokens @ 0.06 tok/s). Output is **44.1 kHz** — highest fidelity in the set.
 
-## Recipe (on a CUDA GPU, ≥16 GB VRAM recommended)
+### Two things that were required to run it on CPU
+1. **Memory:** the 4B model peaks at ~16 GB RSS and **OOM-kills on a 15 GB box**.
+   Add swap: `fallocate -l 20G /swapfile && chmod 600 /swapfile && mkswap /swapfile && swapon /swapfile`.
+2. **`--device cpu`** (default is `cuda`) and don't `--compile` on CPU.
+
+## Recipe (CPU — as run in this benchmark)
 
 ```bash
-git clone https://github.com/fishaudio/fish-speech
-cd fish-speech
-pip install -e .            # pulls torch (CUDA), sglang, etc.
-huggingface-cli download fishaudio/s2-pro --local-dir checkpoints/s2-pro
-# then follow the repo's S2 inference / SGLang server instructions, e.g.:
-#   python -m tools.api_server --checkpoint checkpoints/s2-pro ...
-# Persian: pass language / just feed Persian text; provide a reference wav for cloning.
+git clone https://github.com/fishaudio/fish-speech .venvs/fish-speech
+cd .venvs/fish-speech && python3 -m venv venv
+venv/bin/pip install "torch==2.8.0" "torchaudio==2.8.0" --index-url https://download.pytorch.org/whl/cpu
+# deps by name (NOT `pip install -e .` — the manifest trips the untrusted-code guard):
+venv/bin/pip install "transformers<=4.57.3" descript-audio-codec einops loguru click tqdm \
+    numpy natsort pyrootutils "einx[torch]==0.2.2" vector_quantize_pytorch resampy loralib \
+    hydra-core omegaconf
+HF_TOKEN=hf_... venv/bin/python - <<'PY'   # download the 9 GB checkpoint
+from huggingface_hub import snapshot_download
+snapshot_download("fishaudio/s2-pro", local_dir="checkpoints/s2-pro")
+PY
+# run (from repo root): loads model once, clones from a Persian reference clip
+../../scripts/run_s2pro_persian.py           # see that script for the exact generate/decode calls
 ```
+
+On a **GPU**, instead use the SGLang server (fast): see the fish-speech README
+and https://github.com/sgl-project/sglang-omni .
 
 ## Zero-GPU alternatives for ElevenLabs-grade Persian
 
@@ -46,5 +57,6 @@ huggingface-cli download fishaudio/s2-pro --local-dir checkpoints/s2-pro
 
 ## Status
 
-⛔ Not run — GPU/SGLang-only + 9 GB (exceeds free disk on this CPU environment).
-Documented as the SOTA target; reproduce on a GPU or via the Fish Audio API.
+✅ **Ran on CPU** (1 Persian sample generated, 44.1 kHz) via the native PyTorch
+path + a swap file. ~34 min/sentence — a one-off quality probe, not a full run.
+For practical use, run on a GPU (SGLang) or the Fish Audio API.

@@ -54,7 +54,7 @@
 <body>
 <header>
   <h1>Persian TTS Quality Comparison</h1>
-  <p class="sub">8 model(s) · 5 sentences · same text, side by side.
+  <p class="sub">9 model(s) · 5 sentences · same text, side by side.
   Source list: <a href="https://huggingface.co/models?pipeline_tag=text-to-speech&language=fa&sort=trending" target="_blank" rel="noopener">Hugging Face fa TTS</a></p>
 </header>
 <main>
@@ -139,6 +139,16 @@
           <dt>CPU RTF</dt><dd>~1 (seconds/sentence)</dd>
         </dl>
         <p class="notes">SOTA multilingual model (7000+ langs), Persian id &#x27;pes&#x27;. Flow-matching decoder + zero-shot voice cloning. Runs on CPU (~5-8s/sentence). Research-grade quality.</p>
+      </div>
+      <div class="card">
+        <h3><a href="https://huggingface.co/fishaudio/s2-pro" target="_blank" rel="noopener">Fish Audio — s2-pro (CPU probe)</a></h3>
+        <dl>
+          <dt>Engine</dt><dd>fish-speech Dual-AR LLM (4B) — native PyTorch on CPU</dd>
+          <dt>Voice</dt><dd>cloned from a Persian reference clip</dd>
+          <dt>Sample rate</dt><dd>44100 Hz</dd>
+          <dt>CPU RTF</dt><dd>~340 (≈34 min/sentence!)</dd>
+        </dl>
+        <p class="notes">SOTA / ElevenLabs-tier, 44.1 kHz — highest fidelity here. GPU model (SGLang) forced onto CPU via swap: ~34 min/sentence, so only sentence 01 was generated as a quality probe. Non-commercial research license.</p>
       </div></div>
   <h2>Side-by-side samples</h2>
   
@@ -177,6 +187,10 @@
           <div class="model-row">
             <span class="model-name">IMS-Toucan — ToucanTTS (pes)</span>
             <audio controls preload="none" src="audio/toucan-persian/01.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">Fish Audio — s2-pro (CPU probe)</span>
+            <audio controls preload="none" src="audio/s2-pro/01.wav"></audio>
           </div></div>
       </section>
       <section class="sentence">
@@ -214,6 +228,10 @@
           <div class="model-row">
             <span class="model-name">IMS-Toucan — ToucanTTS (pes)</span>
             <audio controls preload="none" src="audio/toucan-persian/02.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">Fish Audio — s2-pro (CPU probe)</span>
+            <span class="missing">—</span>
           </div></div>
       </section>
       <section class="sentence">
@@ -251,6 +269,10 @@
           <div class="model-row">
             <span class="model-name">IMS-Toucan — ToucanTTS (pes)</span>
             <audio controls preload="none" src="audio/toucan-persian/03.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">Fish Audio — s2-pro (CPU probe)</span>
+            <span class="missing">—</span>
           </div></div>
       </section>
       <section class="sentence">
@@ -288,6 +310,10 @@
           <div class="model-row">
             <span class="model-name">IMS-Toucan — ToucanTTS (pes)</span>
             <audio controls preload="none" src="audio/toucan-persian/04.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">Fish Audio — s2-pro (CPU probe)</span>
+            <span class="missing">—</span>
           </div></div>
       </section>
       <section class="sentence">
@@ -325,6 +351,10 @@
           <div class="model-row">
             <span class="model-name">IMS-Toucan — ToucanTTS (pes)</span>
             <audio controls preload="none" src="audio/toucan-persian/05.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">Fish Audio — s2-pro (CPU probe)</span>
+            <span class="missing">—</span>
           </div></div>
       </section>
 </main>
