@@ -19,7 +19,7 @@ Legend: ✅ done & working · 🚧 in progress · ⏳ queued · ⚠️ blocked/h
 
 | # | Model | Type | Why heavy | Status |
 |---|-------|------|-----------|--------|
-| 6 | [`coqui/XTTS-v2`](https://huggingface.co/coqui/XTTS-v2) | Autoregressive + voice cloning; `fa` supported | ~1.8 GB, slow on CPU | ⚠️ |
+| 6 | [`coqui/XTTS-v2`](https://huggingface.co/coqui/XTTS-v2) | Autoregressive + voice cloning | **base does NOT support `fa`** (see skill) | ❌ |
 | 7 | [`facebook/mms-tts` multilingual](https://huggingface.co/facebook/mms-tts) | large multilingual | big | ⚠️ |
 
 ## Why this order
