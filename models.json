@@ -60,6 +60,16 @@
       "sample_rate": 24000,
       "cpu_rtf": "~4 (slow)",
       "notes": "Heavy autoregressive model (~0.5B). GATED repo (needs HF token). ~20s/sentence on CPU. Voice cloning — conditioned on a Persian reference clip. Non-commercial."
+    },
+    {
+      "id": "mana-piper",
+      "name": "MahtaFetrat — Mana-Persian-Piper",
+      "hf_url": "https://huggingface.co/MahtaFetrat/Mana-Persian-Piper",
+      "engine": "Piper (VITS, ONNX) + espeak-ng",
+      "voice": "fa_IR-mana-medium (single speaker)",
+      "sample_rate": 22050,
+      "cpu_rtf": "~0.03 (very fast)",
+      "notes": "Piper voice trained on the curated ManaTTS corpus. Clean pronunciation, deterministic, ~0.2s/sentence on CPU. Ready-made ONNX — trivial to run. MIT."
     }
   ]
 }

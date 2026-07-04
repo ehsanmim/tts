@@ -54,7 +54,7 @@
 <body>
 <header>
   <h1>Persian TTS Quality Comparison</h1>
-  <p class="sub">6 model(s) · 5 sentences · same text, side by side.
+  <p class="sub">7 model(s) · 5 sentences · same text, side by side.
   Source list: <a href="https://huggingface.co/models?pipeline_tag=text-to-speech&language=fa&sort=trending" target="_blank" rel="noopener">Hugging Face fa TTS</a></p>
 </header>
 <main>
@@ -119,6 +119,16 @@
           <dt>CPU RTF</dt><dd>~4 (slow)</dd>
         </dl>
         <p class="notes">Heavy autoregressive model (~0.5B). GATED repo (needs HF token). ~20s/sentence on CPU. Voice cloning — conditioned on a Persian reference clip. Non-commercial.</p>
+      </div>
+      <div class="card">
+        <h3><a href="https://huggingface.co/MahtaFetrat/Mana-Persian-Piper" target="_blank" rel="noopener">MahtaFetrat — Mana-Persian-Piper</a></h3>
+        <dl>
+          <dt>Engine</dt><dd>Piper (VITS, ONNX) + espeak-ng</dd>
+          <dt>Voice</dt><dd>fa_IR-mana-medium (single speaker)</dd>
+          <dt>Sample rate</dt><dd>22050 Hz</dd>
+          <dt>CPU RTF</dt><dd>~0.03 (very fast)</dd>
+        </dl>
+        <p class="notes">Piper voice trained on the curated ManaTTS corpus. Clean pronunciation, deterministic, ~0.2s/sentence on CPU. Ready-made ONNX — trivial to run. MIT.</p>
       </div></div>
   <h2>Side-by-side samples</h2>
   
@@ -149,6 +159,10 @@
           <div class="model-row">
             <span class="model-name">Thomcles — Chatterbox-TTS-Persian-Farsi</span>
             <audio controls preload="none" src="audio/chatterbox-persian/01.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">MahtaFetrat — Mana-Persian-Piper</span>
+            <audio controls preload="none" src="audio/mana-piper/01.wav"></audio>
           </div></div>
       </section>
       <section class="sentence">
@@ -178,6 +192,10 @@
           <div class="model-row">
             <span class="model-name">Thomcles — Chatterbox-TTS-Persian-Farsi</span>
             <audio controls preload="none" src="audio/chatterbox-persian/02.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">MahtaFetrat — Mana-Persian-Piper</span>
+            <audio controls preload="none" src="audio/mana-piper/02.wav"></audio>
           </div></div>
       </section>
       <section class="sentence">
@@ -207,6 +225,10 @@
           <div class="model-row">
             <span class="model-name">Thomcles — Chatterbox-TTS-Persian-Farsi</span>
             <audio controls preload="none" src="audio/chatterbox-persian/03.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">MahtaFetrat — Mana-Persian-Piper</span>
+            <audio controls preload="none" src="audio/mana-piper/03.wav"></audio>
           </div></div>
       </section>
       <section class="sentence">
@@ -236,6 +258,10 @@
           <div class="model-row">
             <span class="model-name">Thomcles — Chatterbox-TTS-Persian-Farsi</span>
             <audio controls preload="none" src="audio/chatterbox-persian/04.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">MahtaFetrat — Mana-Persian-Piper</span>
+            <audio controls preload="none" src="audio/mana-piper/04.wav"></audio>
           </div></div>
       </section>
       <section class="sentence">
@@ -265,6 +291,10 @@
           <div class="model-row">
             <span class="model-name">Thomcles — Chatterbox-TTS-Persian-Farsi</span>
             <audio controls preload="none" src="audio/chatterbox-persian/05.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">MahtaFetrat — Mana-Persian-Piper</span>
+            <audio controls preload="none" src="audio/mana-piper/05.wav"></audio>
           </div></div>
       </section>
 </main>
