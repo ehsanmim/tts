@@ -30,6 +30,16 @@
       "sample_rate": 22050,
       "cpu_rtf": "0.23",
       "notes": "Coqui-format VITS, male counterpart to the female model. 22.05 kHz."
+    },
+    {
+      "id": "karim-gptinformal-vits",
+      "name": "karim23657 — GPTInformal-Persian VITS",
+      "hf_url": "https://huggingface.co/karim23657/persian-tts-female-GPTInformal-Persian-vits",
+      "engine": "Coqui TTS (VITS) + espeak-ng",
+      "voice": "female, informal/colloquial style",
+      "sample_rate": 24000,
+      "cpu_rtf": "0.24",
+      "notes": "Trained on informal/colloquial Persian (GPTInformal dataset) — a more conversational tone. 24 kHz."
     }
   ]
 }
