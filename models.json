@@ -40,6 +40,16 @@
       "sample_rate": 24000,
       "cpu_rtf": "0.24",
       "notes": "Trained on informal/colloquial Persian (GPTInformal dataset) — a more conversational tone. 24 kHz."
+    },
+    {
+      "id": "seyedali-mms",
+      "name": "SeyedAli — Persian-Speech-synthesis-MMS",
+      "hf_url": "https://huggingface.co/SeyedAli/Persian-Speech-synthesis-MMS",
+      "engine": "🤗 transformers (VITS)",
+      "voice": "single speaker",
+      "sample_rate": 16000,
+      "cpu_rtf": "0.18",
+      "notes": "MMS-style VITS finetune loaded via transformers (no espeak). Same code path as mms-tts-fas. 16 kHz."
     }
   ]
 }

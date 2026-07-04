@@ -54,7 +54,7 @@
 <body>
 <header>
   <h1>Persian TTS Quality Comparison</h1>
-  <p class="sub">4 model(s) · 5 sentences · same text, side by side.
+  <p class="sub">5 model(s) · 5 sentences · same text, side by side.
   Source list: <a href="https://huggingface.co/models?pipeline_tag=text-to-speech&language=fa&sort=trending" target="_blank" rel="noopener">Hugging Face fa TTS</a></p>
 </header>
 <main>
@@ -99,6 +99,16 @@
           <dt>CPU RTF</dt><dd>0.24</dd>
         </dl>
         <p class="notes">Trained on informal/colloquial Persian (GPTInformal dataset) — a more conversational tone. 24 kHz.</p>
+      </div>
+      <div class="card">
+        <h3><a href="https://huggingface.co/SeyedAli/Persian-Speech-synthesis-MMS" target="_blank" rel="noopener">SeyedAli — Persian-Speech-synthesis-MMS</a></h3>
+        <dl>
+          <dt>Engine</dt><dd>🤗 transformers (VITS)</dd>
+          <dt>Voice</dt><dd>single speaker</dd>
+          <dt>Sample rate</dt><dd>16000 Hz</dd>
+          <dt>CPU RTF</dt><dd>0.18</dd>
+        </dl>
+        <p class="notes">MMS-style VITS finetune loaded via transformers (no espeak). Same code path as mms-tts-fas. 16 kHz.</p>
       </div></div>
   <h2>Side-by-side samples</h2>
   
@@ -121,6 +131,10 @@
           <div class="model-row">
             <span class="model-name">karim23657 — GPTInformal-Persian VITS</span>
             <audio controls preload="none" src="audio/karim-gptinformal-vits/01.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">SeyedAli — Persian-Speech-synthesis-MMS</span>
+            <audio controls preload="none" src="audio/seyedali-mms/01.wav"></audio>
           </div></div>
       </section>
       <section class="sentence">
@@ -142,6 +156,10 @@
           <div class="model-row">
             <span class="model-name">karim23657 — GPTInformal-Persian VITS</span>
             <audio controls preload="none" src="audio/karim-gptinformal-vits/02.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">SeyedAli — Persian-Speech-synthesis-MMS</span>
+            <audio controls preload="none" src="audio/seyedali-mms/02.wav"></audio>
           </div></div>
       </section>
       <section class="sentence">
@@ -163,6 +181,10 @@
           <div class="model-row">
             <span class="model-name">karim23657 — GPTInformal-Persian VITS</span>
             <audio controls preload="none" src="audio/karim-gptinformal-vits/03.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">SeyedAli — Persian-Speech-synthesis-MMS</span>
+            <audio controls preload="none" src="audio/seyedali-mms/03.wav"></audio>
           </div></div>
       </section>
       <section class="sentence">
@@ -184,6 +206,10 @@
           <div class="model-row">
             <span class="model-name">karim23657 — GPTInformal-Persian VITS</span>
             <audio controls preload="none" src="audio/karim-gptinformal-vits/04.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">SeyedAli — Persian-Speech-synthesis-MMS</span>
+            <audio controls preload="none" src="audio/seyedali-mms/04.wav"></audio>
           </div></div>
       </section>
       <section class="sentence">
@@ -205,6 +231,10 @@
           <div class="model-row">
             <span class="model-name">karim23657 — GPTInformal-Persian VITS</span>
             <audio controls preload="none" src="audio/karim-gptinformal-vits/05.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">SeyedAli — Persian-Speech-synthesis-MMS</span>
+            <audio controls preload="none" src="audio/seyedali-mms/05.wav"></audio>
           </div></div>
       </section>
 </main>

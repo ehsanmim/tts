@@ -12,7 +12,7 @@ Legend: ✅ done & working · 🚧 in progress · ⏳ queued · ⚠️ blocked/h
 | 2 | [`Kamtera/persian-tts-female-vits`](https://huggingface.co/Kamtera/persian-tts-female-vits) | VITS | Coqui TTS | female | ✅ fast | ✅ |
 | 3 | [`Kamtera/persian-tts-male-vits`](https://huggingface.co/Kamtera/persian-tts-male-vits) | VITS | Coqui TTS | male | ✅ fast | ✅ |
 | 4 | [`Kamtera/persian-tts-female-glow_tts`](https://huggingface.co/Kamtera/persian-tts-female-glow_tts) | GlowTTS | Coqui TTS | female | ✅ ok | ⏳ |
-| 5 | [`SeyedAli/Persian-Speech-synthesis`](https://huggingface.co/SeyedAli/Persian-Speech-synthesis) | VITS | Coqui TTS | female | ✅ ok | ⏳ |
+| 5 | [`SeyedAli/Persian-Speech-synthesis-MMS`](https://huggingface.co/SeyedAli/Persian-Speech-synthesis-MMS) | VITS | 🤗 transformers | single | ✅ fast | ✅ |
 | 6 | [`karim23657/...GPTInformal-Persian-vits`](https://huggingface.co/karim23657/persian-tts-female-GPTInformal-Persian-vits) | VITS | Coqui TTS | female (informal) | ✅ fast | ✅ |
 
 ## Stretch goals (heavier — slow on CPU, better on GPU)
@@ -48,3 +48,4 @@ Results table (filled as we go):
 | kamtera-female-vits | tbd (your ear) | espeak fa phonemizer | tbd | 0.24 | female voice, 24 kHz, isolated venv |
 | kamtera-male-vits | tbd (your ear) | espeak fa phonemizer | tbd | 0.23 | male voice, 22 kHz |
 | karim-gptinformal-vits | tbd (your ear) | espeak fa phonemizer | tbd | 0.24 | informal/colloquial female, 24 kHz |
+| seyedali-mms | tbd (your ear) | MMS tokenizer | tbd | 0.18 | MMS finetune via transformers, 16 kHz |
