@@ -54,7 +54,7 @@
 <body>
 <header>
   <h1>Persian TTS Quality Comparison</h1>
-  <p class="sub">9 model(s) · 5 sentences · same text, side by side.
+  <p class="sub">10 model(s) · 5 sentences · same text, side by side.
   Source list: <a href="https://huggingface.co/models?pipeline_tag=text-to-speech&language=fa&sort=trending" target="_blank" rel="noopener">Hugging Face fa TTS</a></p>
 </header>
 <main>
@@ -149,6 +149,16 @@
           <dt>CPU RTF</dt><dd>~340 (≈34 min/sentence!)</dd>
         </dl>
         <p class="notes">SOTA / ElevenLabs-tier, 44.1 kHz — highest fidelity here. GPU model (SGLang) forced onto CPU via swap: ~34 min/sentence, so only sentence 01 was generated as a quality probe. Non-commercial research license.</p>
+      </div>
+      <div class="card">
+        <h3><a href="https://huggingface.co/Lumos675/F5_TTS_Persian" target="_blank" rel="noopener">Lumos675 — F5-TTS Persian</a></h3>
+        <dl>
+          <dt>Engine</dt><dd>F5-TTS v1 (flow-matching DiT) + vocos</dd>
+          <dt>Voice</dt><dd>cloned from a Persian reference clip</dd>
+          <dt>Sample rate</dt><dd>24000 Hz</dd>
+          <dt>CPU RTF</dt><dd>~15 (~90s/sentence)</dd>
+        </dl>
+        <p class="notes">F5-TTS flow-matching finetune — ships its own char vocab (complete). Zero-shot cloning, Apache-2.0. ~90s/sentence on CPU. A leading open naturalness candidate for Persian.</p>
       </div></div>
   <h2>Side-by-side samples</h2>
   
@@ -191,6 +201,10 @@
           <div class="model-row">
             <span class="model-name">Fish Audio — s2-pro (CPU probe)</span>
             <audio controls preload="none" src="audio/s2-pro/01.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">Lumos675 — F5-TTS Persian</span>
+            <audio controls preload="none" src="audio/f5-persian/01.wav"></audio>
           </div></div>
       </section>
       <section class="sentence">
@@ -232,6 +246,10 @@
           <div class="model-row">
             <span class="model-name">Fish Audio — s2-pro (CPU probe)</span>
             <span class="missing">—</span>
+          </div>
+          <div class="model-row">
+            <span class="model-name">Lumos675 — F5-TTS Persian</span>
+            <audio controls preload="none" src="audio/f5-persian/02.wav"></audio>
           </div></div>
       </section>
       <section class="sentence">
@@ -273,6 +291,10 @@
           <div class="model-row">
             <span class="model-name">Fish Audio — s2-pro (CPU probe)</span>
             <span class="missing">—</span>
+          </div>
+          <div class="model-row">
+            <span class="model-name">Lumos675 — F5-TTS Persian</span>
+            <audio controls preload="none" src="audio/f5-persian/03.wav"></audio>
           </div></div>
       </section>
       <section class="sentence">
@@ -314,6 +336,10 @@
           <div class="model-row">
             <span class="model-name">Fish Audio — s2-pro (CPU probe)</span>
             <span class="missing">—</span>
+          </div>
+          <div class="model-row">
+            <span class="model-name">Lumos675 — F5-TTS Persian</span>
+            <audio controls preload="none" src="audio/f5-persian/04.wav"></audio>
           </div></div>
       </section>
       <section class="sentence">
@@ -355,6 +381,10 @@
           <div class="model-row">
             <span class="model-name">Fish Audio — s2-pro (CPU probe)</span>
             <span class="missing">—</span>
+          </div>
+          <div class="model-row">
+            <span class="model-name">Lumos675 — F5-TTS Persian</span>
+            <audio controls preload="none" src="audio/f5-persian/05.wav"></audio>
           </div></div>
       </section>
 </main>

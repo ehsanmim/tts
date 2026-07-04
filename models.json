@@ -90,6 +90,16 @@
       "sample_rate": 44100,
       "cpu_rtf": "~340 (≈34 min/sentence!)",
       "notes": "SOTA / ElevenLabs-tier, 44.1 kHz — highest fidelity here. GPU model (SGLang) forced onto CPU via swap: ~34 min/sentence, so only sentence 01 was generated as a quality probe. Non-commercial research license."
+    },
+    {
+      "id": "f5-persian",
+      "name": "Lumos675 — F5-TTS Persian",
+      "hf_url": "https://huggingface.co/Lumos675/F5_TTS_Persian",
+      "engine": "F5-TTS v1 (flow-matching DiT) + vocos",
+      "voice": "cloned from a Persian reference clip",
+      "sample_rate": 24000,
+      "cpu_rtf": "~15 (~90s/sentence)",
+      "notes": "F5-TTS flow-matching finetune — ships its own char vocab (complete). Zero-shot cloning, Apache-2.0. ~90s/sentence on CPU. A leading open naturalness candidate for Persian."
     }
   ]
 }

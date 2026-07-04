@@ -65,3 +65,5 @@ Results table (filled as we go):
 | chatterbox-persian | tbd (your ear) | multilingual tokenizer | tbd | ~4 (slow) | heavy voice-cloning finetune, 24 kHz, gated |
 | mana-piper | tbd (your ear) | espeak-ng (Piper) | tbd | ~0.03 (fastest) | Piper on ManaTTS corpus, clean, 22 kHz |
 | toucan-persian | tbd (your ear) | espeak-ng (pes) | tbd | ~1 | SOTA multilingual, flow-matching + cloning, 24 kHz, best CPU quality |
+| f5-persian | tbd (your ear) | char vocab (F5) | tbd | ~15 | F5-TTS flow-matching finetune, cloning, 24 kHz, ~90s/sentence |
+| s2-pro | tbd (your ear) | byte-level | tbd | ~340 | SOTA Dual-AR LLM, 44.1 kHz, ~34 min/sentence on CPU (1 sample) |
