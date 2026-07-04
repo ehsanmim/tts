@@ -20,6 +20,16 @@
       "sample_rate": 24000,
       "cpu_rtf": "0.24",
       "notes": "Coqui-format VITS. Needs espeak-ng phonemizer; runs in an isolated venv. 24 kHz."
+    },
+    {
+      "id": "kamtera-male-vits",
+      "name": "Kamtera — persian-tts-male-vits",
+      "hf_url": "https://huggingface.co/Kamtera/persian-tts-male-vits",
+      "engine": "Coqui TTS (VITS) + espeak-ng",
+      "voice": "single male speaker",
+      "sample_rate": 22050,
+      "cpu_rtf": "0.23",
+      "notes": "Coqui-format VITS, male counterpart to the female model. 22.05 kHz."
     }
   ]
 }

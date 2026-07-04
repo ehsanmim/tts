@@ -10,7 +10,7 @@ Legend: ✅ done & working · 🚧 in progress · ⏳ queued · ⚠️ blocked/h
 |---|-------|------|--------|-------|------|--------|
 | 1 | [`facebook/mms-tts-fas`](https://huggingface.co/facebook/mms-tts-fas) | VITS | 🤗 transformers | single (male-ish) | ✅ fast | ✅ |
 | 2 | [`Kamtera/persian-tts-female-vits`](https://huggingface.co/Kamtera/persian-tts-female-vits) | VITS | Coqui TTS | female | ✅ fast | ✅ |
-| 3 | [`Kamtera/persian-tts-male-vits`](https://huggingface.co/Kamtera/persian-tts-male-vits) | VITS | Coqui TTS | male | ✅ fast | ⏳ |
+| 3 | [`Kamtera/persian-tts-male-vits`](https://huggingface.co/Kamtera/persian-tts-male-vits) | VITS | Coqui TTS | male | ✅ fast | ✅ |
 | 4 | [`Kamtera/persian-tts-female-glow_tts`](https://huggingface.co/Kamtera/persian-tts-female-glow_tts) | GlowTTS | Coqui TTS | female | ✅ ok | ⏳ |
 | 5 | [`SeyedAli/Persian-Speech-synthesis`](https://huggingface.co/SeyedAli/Persian-Speech-synthesis) | VITS | Coqui TTS | female | ✅ ok | ⏳ |
 
@@ -45,3 +45,4 @@ Results table (filled as we go):
 |-------|---------|---------|---------|-----------|-------|
 | mms-tts-fas | tbd (your ear) | reads digits one-by-one | tbd | 0.2–0.3 | zero-friction setup, no espeak |
 | kamtera-female-vits | tbd (your ear) | espeak fa phonemizer | tbd | 0.24 | female voice, 24 kHz, isolated venv |
+| kamtera-male-vits | tbd (your ear) | espeak fa phonemizer | tbd | 0.23 | male voice, 22 kHz |

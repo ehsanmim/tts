@@ -54,7 +54,7 @@
 <body>
 <header>
   <h1>Persian TTS Quality Comparison</h1>
-  <p class="sub">2 model(s) · 5 sentences · same text, side by side.
+  <p class="sub">3 model(s) · 5 sentences · same text, side by side.
   Source list: <a href="https://huggingface.co/models?pipeline_tag=text-to-speech&language=fa&sort=trending" target="_blank" rel="noopener">Hugging Face fa TTS</a></p>
 </header>
 <main>
@@ -79,6 +79,16 @@
           <dt>CPU RTF</dt><dd>0.24</dd>
         </dl>
         <p class="notes">Coqui-format VITS. Needs espeak-ng phonemizer; runs in an isolated venv. 24 kHz.</p>
+      </div>
+      <div class="card">
+        <h3><a href="https://huggingface.co/Kamtera/persian-tts-male-vits" target="_blank" rel="noopener">Kamtera — persian-tts-male-vits</a></h3>
+        <dl>
+          <dt>Engine</dt><dd>Coqui TTS (VITS) + espeak-ng</dd>
+          <dt>Voice</dt><dd>single male speaker</dd>
+          <dt>Sample rate</dt><dd>22050 Hz</dd>
+          <dt>CPU RTF</dt><dd>0.23</dd>
+        </dl>
+        <p class="notes">Coqui-format VITS, male counterpart to the female model. 22.05 kHz.</p>
       </div></div>
   <h2>Side-by-side samples</h2>
   
@@ -93,6 +103,10 @@
           <div class="model-row">
             <span class="model-name">Kamtera — persian-tts-female-vits</span>
             <audio controls preload="none" src="audio/kamtera-female-vits/01.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">Kamtera — persian-tts-male-vits</span>
+            <audio controls preload="none" src="audio/kamtera-male-vits/01.wav"></audio>
           </div></div>
       </section>
       <section class="sentence">
@@ -106,6 +120,10 @@
           <div class="model-row">
             <span class="model-name">Kamtera — persian-tts-female-vits</span>
             <audio controls preload="none" src="audio/kamtera-female-vits/02.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">Kamtera — persian-tts-male-vits</span>
+            <audio controls preload="none" src="audio/kamtera-male-vits/02.wav"></audio>
           </div></div>
       </section>
       <section class="sentence">
@@ -119,6 +137,10 @@
           <div class="model-row">
             <span class="model-name">Kamtera — persian-tts-female-vits</span>
             <audio controls preload="none" src="audio/kamtera-female-vits/03.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">Kamtera — persian-tts-male-vits</span>
+            <audio controls preload="none" src="audio/kamtera-male-vits/03.wav"></audio>
           </div></div>
       </section>
       <section class="sentence">
@@ -132,6 +154,10 @@
           <div class="model-row">
             <span class="model-name">Kamtera — persian-tts-female-vits</span>
             <audio controls preload="none" src="audio/kamtera-female-vits/04.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">Kamtera — persian-tts-male-vits</span>
+            <audio controls preload="none" src="audio/kamtera-male-vits/04.wav"></audio>
           </div></div>
       </section>
       <section class="sentence">
@@ -145,6 +171,10 @@
           <div class="model-row">
             <span class="model-name">Kamtera — persian-tts-female-vits</span>
             <audio controls preload="none" src="audio/kamtera-female-vits/05.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">Kamtera — persian-tts-male-vits</span>
+            <audio controls preload="none" src="audio/kamtera-male-vits/05.wav"></audio>
           </div></div>
       </section>
 </main>
