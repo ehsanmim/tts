@@ -1,0 +1,115 @@
+{
+  "sample_text_file": "sample_texts/sentences.txt",
+  "models": [
+    {
+      "id": "mms-tts-fas",
+      "name": "Meta MMS — mms-tts-fas",
+      "hf_url": "https://huggingface.co/facebook/mms-tts-fas",
+      "engine": "🤗 transformers (VITS)",
+      "voice": "single speaker (male-ish)",
+      "sample_rate": 16000,
+      "cpu_rtf": "0.2–0.3",
+      "notes": "Zero-friction setup, no espeak needed. Reads digits one-by-one. Non-commercial license."
+    },
+    {
+      "id": "kamtera-female-vits",
+      "name": "Kamtera — persian-tts-female-vits",
+      "hf_url": "https://huggingface.co/Kamtera/persian-tts-female-vits",
+      "engine": "Coqui TTS (VITS) + espeak-ng",
+      "voice": "single female speaker",
+      "sample_rate": 24000,
+      "cpu_rtf": "0.24",
+      "notes": "Coqui-format VITS. Needs espeak-ng phonemizer; runs in an isolated venv. 24 kHz."
+    },
+    {
+      "id": "kamtera-male-vits",
+      "name": "Kamtera — persian-tts-male-vits",
+      "hf_url": "https://huggingface.co/Kamtera/persian-tts-male-vits",
+      "engine": "Coqui TTS (VITS) + espeak-ng",
+      "voice": "single male speaker",
+      "sample_rate": 22050,
+      "cpu_rtf": "0.23",
+      "notes": "Coqui-format VITS, male counterpart to the female model. 22.05 kHz."
+    },
+    {
+      "id": "karim-gptinformal-vits",
+      "name": "karim23657 — GPTInformal-Persian VITS",
+      "hf_url": "https://huggingface.co/karim23657/persian-tts-female-GPTInformal-Persian-vits",
+      "engine": "Coqui TTS (VITS) + espeak-ng",
+      "voice": "female, informal/colloquial style",
+      "sample_rate": 24000,
+      "cpu_rtf": "0.24",
+      "notes": "Trained on informal/colloquial Persian (GPTInformal dataset) — a more conversational tone. 24 kHz."
+    },
+    {
+      "id": "seyedali-mms",
+      "name": "SeyedAli — Persian-Speech-synthesis-MMS",
+      "hf_url": "https://huggingface.co/SeyedAli/Persian-Speech-synthesis-MMS",
+      "engine": "🤗 transformers (VITS)",
+      "voice": "single speaker",
+      "sample_rate": 16000,
+      "cpu_rtf": "0.18",
+      "notes": "MMS-style VITS finetune loaded via transformers (no espeak). Same code path as mms-tts-fas. 16 kHz."
+    },
+    {
+      "id": "chatterbox-persian",
+      "name": "Thomcles — Chatterbox-TTS-Persian-Farsi",
+      "hf_url": "https://huggingface.co/Thomcles/Chatterbox-TTS-Persian-Farsi",
+      "engine": "chatterbox-tts (multilingual, T3 fa finetune)",
+      "voice": "voice-cloned from a Persian reference clip",
+      "sample_rate": 24000,
+      "cpu_rtf": "~4 (slow)",
+      "notes": "Heavy autoregressive model (~0.5B). GATED repo (needs HF token). ~20s/sentence on CPU. Voice cloning — conditioned on a Persian reference clip. Non-commercial."
+    },
+    {
+      "id": "mana-piper",
+      "name": "MahtaFetrat — Mana-Persian-Piper",
+      "hf_url": "https://huggingface.co/MahtaFetrat/Mana-Persian-Piper",
+      "engine": "Piper (VITS, ONNX) + espeak-ng",
+      "voice": "fa_IR-mana-medium (single speaker)",
+      "sample_rate": 22050,
+      "cpu_rtf": "~0.03 (very fast)",
+      "notes": "Piper voice trained on the curated ManaTTS corpus. Clean pronunciation, deterministic, ~0.2s/sentence on CPU. Ready-made ONNX — trivial to run. MIT."
+    },
+    {
+      "id": "toucan-persian",
+      "name": "IMS-Toucan — ToucanTTS (pes)",
+      "hf_url": "https://github.com/DigitalPhonetics/IMS-Toucan",
+      "engine": "ToucanTTS (flow-matching, multilingual) + espeak-ng",
+      "voice": "zero-shot cloned from a Persian reference clip",
+      "sample_rate": 24000,
+      "cpu_rtf": "~1 (seconds/sentence)",
+      "notes": "SOTA multilingual model (7000+ langs), Persian id 'pes'. Flow-matching decoder + zero-shot voice cloning. Runs on CPU (~5-8s/sentence). Research-grade quality."
+    },
+    {
+      "id": "s2-pro",
+      "name": "Fish Audio — s2-pro (CPU probe)",
+      "hf_url": "https://huggingface.co/fishaudio/s2-pro",
+      "engine": "fish-speech Dual-AR LLM (4B) — native PyTorch on CPU",
+      "voice": "cloned from a Persian reference clip",
+      "sample_rate": 44100,
+      "cpu_rtf": "~340 (≈34 min/sentence!)",
+      "notes": "SOTA / ElevenLabs-tier, 44.1 kHz — highest fidelity here. GPU model (SGLang) forced onto CPU via swap: ~34 min/sentence, so only sentence 01 was generated as a quality probe. Non-commercial research license."
+    },
+    {
+      "id": "f5-persian",
+      "name": "Lumos675 — F5-TTS Persian",
+      "hf_url": "https://huggingface.co/Lumos675/F5_TTS_Persian",
+      "engine": "F5-TTS v1 (flow-matching DiT) + vocos",
+      "voice": "cloned from a Persian reference clip",
+      "sample_rate": 24000,
+      "cpu_rtf": "~15 (~90s/sentence)",
+      "notes": "F5-TTS flow-matching finetune — ships its own char vocab (complete). Zero-shot cloning, Apache-2.0. ~90s/sentence on CPU. A leading open naturalness candidate for Persian."
+    },
+    {
+      "id": "f5-persian-tuned",
+      "name": "F5-TTS Persian — tuned",
+      "hf_url": "https://huggingface.co/Lumos675/F5_TTS_Persian",
+      "engine": "F5-TTS v1 + Persian text normalization",
+      "voice": "cloned from a Persian reference clip",
+      "sample_rate": 24000,
+      "cpu_rtf": "~22 (~2min/sentence)",
+      "notes": "Same model as f5-persian, TUNED: numbers/dates normalized to Persian words (phone numbers digit-by-digit), nfe_step 32->48. Fixes the digit/date mispronunciations and steadies output."
+    }
+  ]
+}

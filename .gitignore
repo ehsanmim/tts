@@ -1,0 +1,6 @@
+# Python
+__pycache__/
+*.pyc
+# Virtualenvs (coqui lives in its own venv; never commit it)
+.venvs/
+venv/

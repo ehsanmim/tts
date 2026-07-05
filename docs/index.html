@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Persian TTS Quality Comparison</title>
+<style>
+  :root {
+    --bg:#0f1216; --panel:#181d24; --panel2:#1f2630; --text:#e6edf3;
+    --muted:#8b98a5; --accent:#5eb0ef; --border:#2a323d;
+  }
+  @media (prefers-color-scheme: light) {
+    :root { --bg:#f6f8fa; --panel:#fff; --panel2:#f0f3f6; --text:#1f2328;
+      --muted:#59636e; --accent:#0969da; --border:#d0d7de; }
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    background:var(--bg); color:var(--text); line-height:1.5; }
+  header { padding:2rem 1.25rem 1rem; max-width:1000px; margin:0 auto; }
+  h1 { margin:0 0 .35rem; font-size:1.7rem; }
+  .sub { color:var(--muted); }
+  main { max-width:1000px; margin:0 auto; padding:0 1.25rem 4rem; }
+  h2 { font-size:1rem; text-transform:uppercase; letter-spacing:.06em;
+    color:var(--muted); margin:2rem 0 .75rem; }
+  .cards { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+    gap:.75rem; }
+  .card { background:var(--panel); border:1px solid var(--border);
+    border-radius:10px; padding:1rem; }
+  .card h3 { margin:0 0 .5rem; font-size:1rem; }
+  .card a { color:var(--accent); text-decoration:none; }
+  .card a:hover { text-decoration:underline; }
+  dl { display:grid; grid-template-columns:auto 1fr; gap:.15rem .6rem; margin:.5rem 0; }
+  dt { color:var(--muted); font-size:.82rem; }
+  dd { margin:0; font-size:.82rem; }
+  .notes { color:var(--muted); font-size:.8rem; margin:.5rem 0 0; }
+  .sentence { background:var(--panel); border:1px solid var(--border);
+    border-radius:10px; padding:1rem 1.1rem; margin-bottom:1rem; }
+  .sid { color:var(--muted); font-size:.8rem; font-weight:600; }
+  .fa { font-size:1.35rem; margin:.35rem 0 .9rem; }
+  .rows { display:grid; gap:.5rem; }
+  .model-row { display:grid; grid-template-columns:200px 1fr; align-items:center;
+    gap:.75rem; background:var(--panel2); border-radius:8px; padding:.5rem .7rem; }
+  .model-name { font-size:.85rem; color:var(--muted); }
+  audio { width:100%; height:36px; }
+  .missing { color:var(--muted); }
+  @media (max-width:640px) {
+    .model-row { grid-template-columns:1fr; }
+  }
+  footer { max-width:1000px; margin:0 auto; padding:1rem 1.25rem 3rem;
+    color:var(--muted); font-size:.8rem; }
+  a { color:var(--accent); }
+</style>
+</head>
+<body>
+<header>
+  <h1>Persian TTS Quality Comparison</h1>
+  <p class="sub">11 model(s) · 5 sentences · same text, side by side.
+  Source list: <a href="https://huggingface.co/models?pipeline_tag=text-to-speech&language=fa&sort=trending" target="_blank" rel="noopener">Hugging Face fa TTS</a></p>
+</header>
+<main>
+  <h2>Models</h2>
+  <div class="cards">
+      <div class="card">
+        <h3><a href="https://huggingface.co/facebook/mms-tts-fas" target="_blank" rel="noopener">Meta MMS — mms-tts-fas</a></h3>
+        <dl>
+          <dt>Engine</dt><dd>🤗 transformers (VITS)</dd>
+          <dt>Voice</dt><dd>single speaker (male-ish)</dd>
+          <dt>Sample rate</dt><dd>16000 Hz</dd>
+          <dt>CPU RTF</dt><dd>0.2–0.3</dd>
+        </dl>
+        <p class="notes">Zero-friction setup, no espeak needed. Reads digits one-by-one. Non-commercial license.</p>
+      </div>
+      <div class="card">
+        <h3><a href="https://huggingface.co/Kamtera/persian-tts-female-vits" target="_blank" rel="noopener">Kamtera — persian-tts-female-vits</a></h3>
+        <dl>
+          <dt>Engine</dt><dd>Coqui TTS (VITS) + espeak-ng</dd>
+          <dt>Voice</dt><dd>single female speaker</dd>
+          <dt>Sample rate</dt><dd>24000 Hz</dd>
+          <dt>CPU RTF</dt><dd>0.24</dd>
+        </dl>
+        <p class="notes">Coqui-format VITS. Needs espeak-ng phonemizer; runs in an isolated venv. 24 kHz.</p>
+      </div>
+      <div class="card">
+        <h3><a href="https://huggingface.co/Kamtera/persian-tts-male-vits" target="_blank" rel="noopener">Kamtera — persian-tts-male-vits</a></h3>
+        <dl>
+          <dt>Engine</dt><dd>Coqui TTS (VITS) + espeak-ng</dd>
+          <dt>Voice</dt><dd>single male speaker</dd>
+          <dt>Sample rate</dt><dd>22050 Hz</dd>
+          <dt>CPU RTF</dt><dd>0.23</dd>
+        </dl>
+        <p class="notes">Coqui-format VITS, male counterpart to the female model. 22.05 kHz.</p>
+      </div>
+      <div class="card">
+        <h3><a href="https://huggingface.co/karim23657/persian-tts-female-GPTInformal-Persian-vits" target="_blank" rel="noopener">karim23657 — GPTInformal-Persian VITS</a></h3>
+        <dl>
+          <dt>Engine</dt><dd>Coqui TTS (VITS) + espeak-ng</dd>
+          <dt>Voice</dt><dd>female, informal/colloquial style</dd>
+          <dt>Sample rate</dt><dd>24000 Hz</dd>
+          <dt>CPU RTF</dt><dd>0.24</dd>
+        </dl>
+        <p class="notes">Trained on informal/colloquial Persian (GPTInformal dataset) — a more conversational tone. 24 kHz.</p>
+      </div>
+      <div class="card">
+        <h3><a href="https://huggingface.co/SeyedAli/Persian-Speech-synthesis-MMS" target="_blank" rel="noopener">SeyedAli — Persian-Speech-synthesis-MMS</a></h3>
+        <dl>
+          <dt>Engine</dt><dd>🤗 transformers (VITS)</dd>
+          <dt>Voice</dt><dd>single speaker</dd>
+          <dt>Sample rate</dt><dd>16000 Hz</dd>
+          <dt>CPU RTF</dt><dd>0.18</dd>
+        </dl>
+        <p class="notes">MMS-style VITS finetune loaded via transformers (no espeak). Same code path as mms-tts-fas. 16 kHz.</p>
+      </div>
+      <div class="card">
+        <h3><a href="https://huggingface.co/Thomcles/Chatterbox-TTS-Persian-Farsi" target="_blank" rel="noopener">Thomcles — Chatterbox-TTS-Persian-Farsi</a></h3>
+        <dl>
+          <dt>Engine</dt><dd>chatterbox-tts (multilingual, T3 fa finetune)</dd>
+          <dt>Voice</dt><dd>voice-cloned from a Persian reference clip</dd>
+          <dt>Sample rate</dt><dd>24000 Hz</dd>
+          <dt>CPU RTF</dt><dd>~4 (slow)</dd>
+        </dl>
+        <p class="notes">Heavy autoregressive model (~0.5B). GATED repo (needs HF token). ~20s/sentence on CPU. Voice cloning — conditioned on a Persian reference clip. Non-commercial.</p>
+      </div>
+      <div class="card">
+        <h3><a href="https://huggingface.co/MahtaFetrat/Mana-Persian-Piper" target="_blank" rel="noopener">MahtaFetrat — Mana-Persian-Piper</a></h3>
+        <dl>
+          <dt>Engine</dt><dd>Piper (VITS, ONNX) + espeak-ng</dd>
+          <dt>Voice</dt><dd>fa_IR-mana-medium (single speaker)</dd>
+          <dt>Sample rate</dt><dd>22050 Hz</dd>
+          <dt>CPU RTF</dt><dd>~0.03 (very fast)</dd>
+        </dl>
+        <p class="notes">Piper voice trained on the curated ManaTTS corpus. Clean pronunciation, deterministic, ~0.2s/sentence on CPU. Ready-made ONNX — trivial to run. MIT.</p>
+      </div>
+      <div class="card">
+        <h3><a href="https://github.com/DigitalPhonetics/IMS-Toucan" target="_blank" rel="noopener">IMS-Toucan — ToucanTTS (pes)</a></h3>
+        <dl>
+          <dt>Engine</dt><dd>ToucanTTS (flow-matching, multilingual) + espeak-ng</dd>
+          <dt>Voice</dt><dd>zero-shot cloned from a Persian reference clip</dd>
+          <dt>Sample rate</dt><dd>24000 Hz</dd>
+          <dt>CPU RTF</dt><dd>~1 (seconds/sentence)</dd>
+        </dl>
+        <p class="notes">SOTA multilingual model (7000+ langs), Persian id &#x27;pes&#x27;. Flow-matching decoder + zero-shot voice cloning. Runs on CPU (~5-8s/sentence). Research-grade quality.</p>
+      </div>
+      <div class="card">
+        <h3><a href="https://huggingface.co/fishaudio/s2-pro" target="_blank" rel="noopener">Fish Audio — s2-pro (CPU probe)</a></h3>
+        <dl>
+          <dt>Engine</dt><dd>fish-speech Dual-AR LLM (4B) — native PyTorch on CPU</dd>
+          <dt>Voice</dt><dd>cloned from a Persian reference clip</dd>
+          <dt>Sample rate</dt><dd>44100 Hz</dd>
+          <dt>CPU RTF</dt><dd>~340 (≈34 min/sentence!)</dd>
+        </dl>
+        <p class="notes">SOTA / ElevenLabs-tier, 44.1 kHz — highest fidelity here. GPU model (SGLang) forced onto CPU via swap: ~34 min/sentence, so only sentence 01 was generated as a quality probe. Non-commercial research license.</p>
+      </div>
+      <div class="card">
+        <h3><a href="https://huggingface.co/Lumos675/F5_TTS_Persian" target="_blank" rel="noopener">Lumos675 — F5-TTS Persian</a></h3>
+        <dl>
+          <dt>Engine</dt><dd>F5-TTS v1 (flow-matching DiT) + vocos</dd>
+          <dt>Voice</dt><dd>cloned from a Persian reference clip</dd>
+          <dt>Sample rate</dt><dd>24000 Hz</dd>
+          <dt>CPU RTF</dt><dd>~15 (~90s/sentence)</dd>
+        </dl>
+        <p class="notes">F5-TTS flow-matching finetune — ships its own char vocab (complete). Zero-shot cloning, Apache-2.0. ~90s/sentence on CPU. A leading open naturalness candidate for Persian.</p>
+      </div>
+      <div class="card">
+        <h3><a href="https://huggingface.co/Lumos675/F5_TTS_Persian" target="_blank" rel="noopener">F5-TTS Persian — tuned</a></h3>
+        <dl>
+          <dt>Engine</dt><dd>F5-TTS v1 + Persian text normalization</dd>
+          <dt>Voice</dt><dd>cloned from a Persian reference clip</dd>
+          <dt>Sample rate</dt><dd>24000 Hz</dd>
+          <dt>CPU RTF</dt><dd>~22 (~2min/sentence)</dd>
+        </dl>
+        <p class="notes">Same model as f5-persian, TUNED: numbers/dates normalized to Persian words (phone numbers digit-by-digit), nfe_step 32-&gt;48. Fixes the digit/date mispronunciations and steadies output.</p>
+      </div></div>
+  <h2>Side-by-side samples</h2>
+  
+      <section class="sentence">
+        <div class="sid">#01</div>
+        <p class="fa" dir="rtl" lang="fa">سلام، این یک نمونه صدا برای آزمایش کیفیت مدل تبدیل متن به گفتار فارسی است.</p>
+        <div class="rows">
+          <div class="model-row">
+            <span class="model-name">Meta MMS — mms-tts-fas</span>
+            <audio controls preload="none" src="audio/mms-tts-fas/01.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">Kamtera — persian-tts-female-vits</span>
+            <audio controls preload="none" src="audio/kamtera-female-vits/01.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">Kamtera — persian-tts-male-vits</span>
+            <audio controls preload="none" src="audio/kamtera-male-vits/01.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">karim23657 — GPTInformal-Persian VITS</span>
+            <audio controls preload="none" src="audio/karim-gptinformal-vits/01.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">SeyedAli — Persian-Speech-synthesis-MMS</span>
+            <audio controls preload="none" src="audio/seyedali-mms/01.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">Thomcles — Chatterbox-TTS-Persian-Farsi</span>
+            <audio controls preload="none" src="audio/chatterbox-persian/01.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">MahtaFetrat — Mana-Persian-Piper</span>
+            <audio controls preload="none" src="audio/mana-piper/01.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">IMS-Toucan — ToucanTTS (pes)</span>
+            <audio controls preload="none" src="audio/toucan-persian/01.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">Fish Audio — s2-pro (CPU probe)</span>
+            <audio controls preload="none" src="audio/s2-pro/01.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">Lumos675 — F5-TTS Persian</span>
+            <audio controls preload="none" src="audio/f5-persian/01.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">F5-TTS Persian — tuned</span>
+            <audio controls preload="none" src="audio/f5-persian-tuned/01.wav"></audio>
+          </div></div>
+      </section>
+      <section class="sentence">
+        <div class="sid">#02</div>
+        <p class="fa" dir="rtl" lang="fa">امروز هوا آفتابی است و پرندگان در آسمان آبی پرواز می‌کنند.</p>
+        <div class="rows">
+          <div class="model-row">
+            <span class="model-name">Meta MMS — mms-tts-fas</span>
+            <audio controls preload="none" src="audio/mms-tts-fas/02.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">Kamtera — persian-tts-female-vits</span>
+            <audio controls preload="none" src="audio/kamtera-female-vits/02.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">Kamtera — persian-tts-male-vits</span>
+            <audio controls preload="none" src="audio/kamtera-male-vits/02.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">karim23657 — GPTInformal-Persian VITS</span>
+            <audio controls preload="none" src="audio/karim-gptinformal-vits/02.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">SeyedAli — Persian-Speech-synthesis-MMS</span>
+            <audio controls preload="none" src="audio/seyedali-mms/02.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">Thomcles — Chatterbox-TTS-Persian-Farsi</span>
+            <audio controls preload="none" src="audio/chatterbox-persian/02.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">MahtaFetrat — Mana-Persian-Piper</span>
+            <audio controls preload="none" src="audio/mana-piper/02.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">IMS-Toucan — ToucanTTS (pes)</span>
+            <audio controls preload="none" src="audio/toucan-persian/02.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">Fish Audio — s2-pro (CPU probe)</span>
+            <span class="missing">—</span>
+          </div>
+          <div class="model-row">
+            <span class="model-name">Lumos675 — F5-TTS Persian</span>
+            <audio controls preload="none" src="audio/f5-persian/02.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">F5-TTS Persian — tuned</span>
+            <audio controls preload="none" src="audio/f5-persian-tuned/02.wav"></audio>
+          </div></div>
+      </section>
+      <section class="sentence">
+        <div class="sid">#03</div>
+        <p class="fa" dir="rtl" lang="fa">کتاب‌خانه‌ی ملی ایران یکی از بزرگ‌ترین کتاب‌خانه‌های خاورمیانه است.</p>
+        <div class="rows">
+          <div class="model-row">
+            <span class="model-name">Meta MMS — mms-tts-fas</span>
+            <audio controls preload="none" src="audio/mms-tts-fas/03.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">Kamtera — persian-tts-female-vits</span>
+            <audio controls preload="none" src="audio/kamtera-female-vits/03.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">Kamtera — persian-tts-male-vits</span>
+            <audio controls preload="none" src="audio/kamtera-male-vits/03.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">karim23657 — GPTInformal-Persian VITS</span>
+            <audio controls preload="none" src="audio/karim-gptinformal-vits/03.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">SeyedAli — Persian-Speech-synthesis-MMS</span>
+            <audio controls preload="none" src="audio/seyedali-mms/03.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">Thomcles — Chatterbox-TTS-Persian-Farsi</span>
+            <audio controls preload="none" src="audio/chatterbox-persian/03.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">MahtaFetrat — Mana-Persian-Piper</span>
+            <audio controls preload="none" src="audio/mana-piper/03.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">IMS-Toucan — ToucanTTS (pes)</span>
+            <audio controls preload="none" src="audio/toucan-persian/03.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">Fish Audio — s2-pro (CPU probe)</span>
+            <span class="missing">—</span>
+          </div>
+          <div class="model-row">
+            <span class="model-name">Lumos675 — F5-TTS Persian</span>
+            <audio controls preload="none" src="audio/f5-persian/03.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">F5-TTS Persian — tuned</span>
+            <audio controls preload="none" src="audio/f5-persian-tuned/03.wav"></audio>
+          </div></div>
+      </section>
+      <section class="sentence">
+        <div class="sid">#04</div>
+        <p class="fa" dir="rtl" lang="fa">آیا می‌توانید ساعت سه بعدازظهر برای جلسه‌ی مهم فردا آماده باشید؟</p>
+        <div class="rows">
+          <div class="model-row">
+            <span class="model-name">Meta MMS — mms-tts-fas</span>
+            <audio controls preload="none" src="audio/mms-tts-fas/04.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">Kamtera — persian-tts-female-vits</span>
+            <audio controls preload="none" src="audio/kamtera-female-vits/04.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">Kamtera — persian-tts-male-vits</span>
+            <audio controls preload="none" src="audio/kamtera-male-vits/04.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">karim23657 — GPTInformal-Persian VITS</span>
+            <audio controls preload="none" src="audio/karim-gptinformal-vits/04.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">SeyedAli — Persian-Speech-synthesis-MMS</span>
+            <audio controls preload="none" src="audio/seyedali-mms/04.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">Thomcles — Chatterbox-TTS-Persian-Farsi</span>
+            <audio controls preload="none" src="audio/chatterbox-persian/04.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">MahtaFetrat — Mana-Persian-Piper</span>
+            <audio controls preload="none" src="audio/mana-piper/04.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">IMS-Toucan — ToucanTTS (pes)</span>
+            <audio controls preload="none" src="audio/toucan-persian/04.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">Fish Audio — s2-pro (CPU probe)</span>
+            <span class="missing">—</span>
+          </div>
+          <div class="model-row">
+            <span class="model-name">Lumos675 — F5-TTS Persian</span>
+            <audio controls preload="none" src="audio/f5-persian/04.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">F5-TTS Persian — tuned</span>
+            <audio controls preload="none" src="audio/f5-persian-tuned/04.wav"></audio>
+          </div></div>
+      </section>
+      <section class="sentence">
+        <div class="sid">#05</div>
+        <p class="fa" dir="rtl" lang="fa">شماره‌ی تماس من ۰۹۱۲۳۴۵۶۷۸۹ است و در تاریخ ۱۴۰۳/۰۵/۱۲ به تهران می‌روم.</p>
+        <div class="rows">
+          <div class="model-row">
+            <span class="model-name">Meta MMS — mms-tts-fas</span>
+            <audio controls preload="none" src="audio/mms-tts-fas/05.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">Kamtera — persian-tts-female-vits</span>
+            <audio controls preload="none" src="audio/kamtera-female-vits/05.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">Kamtera — persian-tts-male-vits</span>
+            <audio controls preload="none" src="audio/kamtera-male-vits/05.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">karim23657 — GPTInformal-Persian VITS</span>
+            <audio controls preload="none" src="audio/karim-gptinformal-vits/05.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">SeyedAli — Persian-Speech-synthesis-MMS</span>
+            <audio controls preload="none" src="audio/seyedali-mms/05.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">Thomcles — Chatterbox-TTS-Persian-Farsi</span>
+            <audio controls preload="none" src="audio/chatterbox-persian/05.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">MahtaFetrat — Mana-Persian-Piper</span>
+            <audio controls preload="none" src="audio/mana-piper/05.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">IMS-Toucan — ToucanTTS (pes)</span>
+            <audio controls preload="none" src="audio/toucan-persian/05.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">Fish Audio — s2-pro (CPU probe)</span>
+            <span class="missing">—</span>
+          </div>
+          <div class="model-row">
+            <span class="model-name">Lumos675 — F5-TTS Persian</span>
+            <audio controls preload="none" src="audio/f5-persian/05.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">F5-TTS Persian — tuned</span>
+            <audio controls preload="none" src="audio/f5-persian-tuned/05.wav"></audio>
+          </div></div>
+      </section>
+</main>
+<footer>
+  Generated by <code>scripts/build_site.py</code>. Audio is embedded (base64) so
+  this page is fully self-contained.
+</footer>
+</body>
+</html>
