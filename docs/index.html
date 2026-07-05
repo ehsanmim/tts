@@ -54,7 +54,7 @@
 <body>
 <header>
   <h1>Persian TTS Quality Comparison</h1>
-  <p class="sub">11 model(s) · 5 sentences · same text, side by side.
+  <p class="sub">13 model(s) · 5 sentences · same text, side by side.
   Source list: <a href="https://huggingface.co/models?pipeline_tag=text-to-speech&language=fa&sort=trending" target="_blank" rel="noopener">Hugging Face fa TTS</a></p>
 </header>
 <main>
@@ -121,6 +121,16 @@
         <p class="notes">Heavy autoregressive model (~0.5B). GATED repo (needs HF token). ~20s/sentence on CPU. Voice cloning — conditioned on a Persian reference clip. Non-commercial.</p>
       </div>
       <div class="card">
+        <h3><a href="https://huggingface.co/Thomcles/Chatterbox-TTS-Persian-Farsi" target="_blank" rel="noopener">Chatterbox-Persian — Ezafe + harakat, expressive</a></h3>
+        <dl>
+          <dt>Engine</dt><dd>chatterbox-tts (T3 fa finetune) + fa_diacritics front-end</dd>
+          <dt>Voice</dt><dd>voice-cloned from a Persian reference clip</dd>
+          <dt>Sample rate</dt><dd>24000 Hz</dd>
+          <dt>CPU RTF</dt><dd>~4 (slow)</dd>
+        </dl>
+        <p class="notes">Same Farsi Chatterbox but fed the diacritized text front-end (digits→words, Ezafe kasra via ALBERT, KaamelDict word-internal harakat with number-homograph fixes: صِفْر نُه) and exaggeration raised 0.5→0.7 for a more emotive delivery. GATED repo (needs HF token). Non-commercial.</p>
+      </div>
+      <div class="card">
         <h3><a href="https://huggingface.co/MahtaFetrat/Mana-Persian-Piper" target="_blank" rel="noopener">MahtaFetrat — Mana-Persian-Piper</a></h3>
         <dl>
           <dt>Engine</dt><dd>Piper (VITS, ONNX) + espeak-ng</dd>
@@ -169,6 +179,16 @@
           <dt>CPU RTF</dt><dd>~22 (~2min/sentence)</dd>
         </dl>
         <p class="notes">Same model as f5-persian, TUNED: numbers/dates normalized to Persian words (phone numbers digit-by-digit), nfe_step 32-&gt;48. Fixes the digit/date mispronunciations and steadies output.</p>
+      </div>
+      <div class="card">
+        <h3><a href="https://huggingface.co/Lumos675/F5_TTS_Persian" target="_blank" rel="noopener">F5-TTS Persian — tuned + Ezafe + harakat</a></h3>
+        <dl>
+          <dt>Engine</dt><dd>F5-TTS v1 + text normalization + abreza/persian-ezafe-albert + KaamelDict G2P</dd>
+          <dt>Voice</dt><dd>cloned from a Persian reference clip</dd>
+          <dt>Sample rate</dt><dd>24000 Hz</dd>
+          <dt>CPU RTF</dt><dd>~22 (~2min/sentence)</dd>
+        </dl>
+        <p class="notes">Same as f5-persian-tuned but with two more front-end stages: abreza/persian-ezafe-albert (F1 98.7%) inserts kasra ِ on Ezafe-bearing words, then KaamelDict (116k-word G2P) adds word-internal fatha/kasra/damma/sukun. Homograph overrides pick the number reading for digit-derived words (صِفْر not صَفَر, نُه not نَه).</p>
       </div></div>
   <h2>Side-by-side samples</h2>
   
@@ -201,6 +221,10 @@
             <audio controls preload="none" src="audio/chatterbox-persian/01.wav"></audio>
           </div>
           <div class="model-row">
+            <span class="model-name">Chatterbox-Persian — Ezafe + harakat, expressive</span>
+            <audio controls preload="none" src="audio/chatterbox-persian-ezafe/01.wav"></audio>
+          </div>
+          <div class="model-row">
             <span class="model-name">MahtaFetrat — Mana-Persian-Piper</span>
             <audio controls preload="none" src="audio/mana-piper/01.wav"></audio>
           </div>
@@ -219,6 +243,10 @@
           <div class="model-row">
             <span class="model-name">F5-TTS Persian — tuned</span>
             <audio controls preload="none" src="audio/f5-persian-tuned/01.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">F5-TTS Persian — tuned + Ezafe + harakat</span>
+            <audio controls preload="none" src="audio/f5-persian-ezafe/01.wav"></audio>
           </div></div>
       </section>
       <section class="sentence">
@@ -250,6 +278,10 @@
             <audio controls preload="none" src="audio/chatterbox-persian/02.wav"></audio>
           </div>
           <div class="model-row">
+            <span class="model-name">Chatterbox-Persian — Ezafe + harakat, expressive</span>
+            <audio controls preload="none" src="audio/chatterbox-persian-ezafe/02.wav"></audio>
+          </div>
+          <div class="model-row">
             <span class="model-name">MahtaFetrat — Mana-Persian-Piper</span>
             <audio controls preload="none" src="audio/mana-piper/02.wav"></audio>
           </div>
@@ -268,6 +300,10 @@
           <div class="model-row">
             <span class="model-name">F5-TTS Persian — tuned</span>
             <audio controls preload="none" src="audio/f5-persian-tuned/02.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">F5-TTS Persian — tuned + Ezafe + harakat</span>
+            <audio controls preload="none" src="audio/f5-persian-ezafe/02.wav"></audio>
           </div></div>
       </section>
       <section class="sentence">
@@ -299,6 +335,10 @@
             <audio controls preload="none" src="audio/chatterbox-persian/03.wav"></audio>
           </div>
           <div class="model-row">
+            <span class="model-name">Chatterbox-Persian — Ezafe + harakat, expressive</span>
+            <audio controls preload="none" src="audio/chatterbox-persian-ezafe/03.wav"></audio>
+          </div>
+          <div class="model-row">
             <span class="model-name">MahtaFetrat — Mana-Persian-Piper</span>
             <audio controls preload="none" src="audio/mana-piper/03.wav"></audio>
           </div>
@@ -317,6 +357,10 @@
           <div class="model-row">
             <span class="model-name">F5-TTS Persian — tuned</span>
             <audio controls preload="none" src="audio/f5-persian-tuned/03.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">F5-TTS Persian — tuned + Ezafe + harakat</span>
+            <audio controls preload="none" src="audio/f5-persian-ezafe/03.wav"></audio>
           </div></div>
       </section>
       <section class="sentence">
@@ -348,6 +392,10 @@
             <audio controls preload="none" src="audio/chatterbox-persian/04.wav"></audio>
           </div>
           <div class="model-row">
+            <span class="model-name">Chatterbox-Persian — Ezafe + harakat, expressive</span>
+            <audio controls preload="none" src="audio/chatterbox-persian-ezafe/04.wav"></audio>
+          </div>
+          <div class="model-row">
             <span class="model-name">MahtaFetrat — Mana-Persian-Piper</span>
             <audio controls preload="none" src="audio/mana-piper/04.wav"></audio>
           </div>
@@ -366,6 +414,10 @@
           <div class="model-row">
             <span class="model-name">F5-TTS Persian — tuned</span>
             <audio controls preload="none" src="audio/f5-persian-tuned/04.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">F5-TTS Persian — tuned + Ezafe + harakat</span>
+            <audio controls preload="none" src="audio/f5-persian-ezafe/04.wav"></audio>
           </div></div>
       </section>
       <section class="sentence">
@@ -397,6 +449,10 @@
             <audio controls preload="none" src="audio/chatterbox-persian/05.wav"></audio>
           </div>
           <div class="model-row">
+            <span class="model-name">Chatterbox-Persian — Ezafe + harakat, expressive</span>
+            <audio controls preload="none" src="audio/chatterbox-persian-ezafe/05.wav"></audio>
+          </div>
+          <div class="model-row">
             <span class="model-name">MahtaFetrat — Mana-Persian-Piper</span>
             <audio controls preload="none" src="audio/mana-piper/05.wav"></audio>
           </div>
@@ -415,6 +471,10 @@
           <div class="model-row">
             <span class="model-name">F5-TTS Persian — tuned</span>
             <audio controls preload="none" src="audio/f5-persian-tuned/05.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">F5-TTS Persian — tuned + Ezafe + harakat</span>
+            <audio controls preload="none" src="audio/f5-persian-ezafe/05.wav"></audio>
           </div></div>
       </section>
 </main>
