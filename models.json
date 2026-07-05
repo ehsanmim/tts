@@ -113,13 +113,13 @@
     },
     {
       "id": "f5-persian-ezafe",
-      "name": "F5-TTS Persian — tuned + Ezafe",
+      "name": "F5-TTS Persian — tuned + Ezafe + harakat",
       "hf_url": "https://huggingface.co/Lumos675/F5_TTS_Persian",
-      "engine": "F5-TTS v1 + text normalization + abreza/persian-ezafe-albert",
+      "engine": "F5-TTS v1 + text normalization + abreza/persian-ezafe-albert + KaamelDict G2P",
       "voice": "cloned from a Persian reference clip",
       "sample_rate": 24000,
       "cpu_rtf": "~22 (~2min/sentence)",
-      "notes": "Same as f5-persian-tuned but adds a third front-end stage: abreza/persian-ezafe-albert (F1 98.7%) inserts kasra ِ on Ezafe-bearing words before synthesis. Gives F5-TTS an explicit phonetic cue for the linking vowel /-e/."
+      "notes": "Same as f5-persian-tuned but with two more front-end stages: abreza/persian-ezafe-albert (F1 98.7%) inserts kasra ِ on Ezafe-bearing words, then KaamelDict (116k-word G2P) adds word-internal fatha/kasra/damma/sukun. Homograph overrides pick the number reading for digit-derived words (صِفْر not صَفَر, نُه not نَه)."
     }
   ]
 }

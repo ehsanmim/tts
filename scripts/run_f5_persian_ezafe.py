@@ -50,7 +50,7 @@ for _base in (0x06F0, 0x0660):
 # KaamelDict phoneme notation
 SHORT_V = {"a": FATHA, "e": KASRA, "o": DAMMA}
 LONG_V  = set("Aiu")
-CONS_PH = set("bptsjchxdzrZSGfqkglmnhyv?")
+CONS_PH = set("bptsjcChxdzrZSGfqkglmnhyv?")  # C = ch (KaamelDict uses both cases)
 # Maps Persian consonant chars to their primary phoneme symbol in KaamelDict
 CHAR_PH = {
     "ب": "b", "پ": "p", "ت": "t", "ث": "s", "ج": "j", "چ": "c",
@@ -63,6 +63,15 @@ CHAR_PH = {
 _SKIP = {"‌", "‍", "ـ"}
 # Punctuation to strip when looking up a word
 _PUNCT = set("،.؟!()[]؛,:»«")
+# KaamelDict's first pronunciation variant is the wrong homograph for these
+# digit-derived words: صفر lists safar (the month) before sefr (zero), and
+# نه lists nah (no) before noh (nine). Applied to every matching token, which
+# is right for text coming out of normalize_fa's digit spelling.
+PH_OVERRIDES = {
+    "صفر": "sefr",    # صِفْر zero, not صَفَر the month Safar
+    "نه":  "noh",     # نُه nine, not نَه no
+    "ساعت": "sA?at",  # ساعَت — the stored variant sAat drops the glottal stop
+}
 
 
 def normalize_fa(text: str) -> str:
@@ -200,6 +209,10 @@ def _add_diacritics(word: str, ph_str: str) -> str:
             elif n == "i":
                 result.append(ch)
                 consume()
+                # Glide/geminate y after i belongs to this letter too
+                # (e.g. کیفیت keyfiyyat, خیابان xiyAbAn)
+                while peek() == "y":
+                    consume()
             else:
                 result.append(ch)
             continue
@@ -209,6 +222,10 @@ def _add_diacritics(word: str, ph_str: str) -> str:
             while pi < len(phs) and phs[pi] not in CONS_PH:
                 pi += 1
             if pi < len(phs):
+                consume()
+            # A geminate (شدّه) consonant is one letter with a doubled phoneme
+            # (e.g. ملی melli, مهم mohemm) — consume the double
+            while peek() == CHAR_PH[ch]:
                 consume()
             result.append(ch)
             after_cons()
@@ -235,10 +252,23 @@ def diacritize_sentence(text: str, lookup: dict) -> str:
             suffix = key[-1] + suffix
             key = key[:-1]
 
+        # An Ezafe kasra appended by apply_ezafe would break the dictionary
+        # lookup; strip it for the lookup and re-append it after.
+        ezafe = ""
+        if key.endswith(KASRA):
+            ezafe = KASRA
+            key = key[:-1]
+
         # Try with and without zero-width non-joiner
-        ph = lookup.get(key) or lookup.get(key.replace("‌", "").replace("‍", ""))
+        ph = (PH_OVERRIDES.get(key) or lookup.get(key)
+              or lookup.get(key.replace("‌", "").replace("‍", "")))
         if ph:
-            out.append(prefix + _add_diacritics(key, ph) + suffix)
+            diac = _add_diacritics(key, ph)
+            # Some KaamelDict entries bake the Ezafe vowel into the
+            # pronunciation (برای barAye) — don't add the kasra twice
+            if diac.endswith(KASRA):
+                ezafe = ""
+            out.append(prefix + diac + ezafe + suffix)
         else:
             out.append(tok)
     return " ".join(out)
