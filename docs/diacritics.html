@@ -1,0 +1,208 @@
+<title>Persian Diacritization — Benchmark</title>
+<script>
+(function(){
+  var stored = localStorage.getItem('theme');
+  if (stored) document.documentElement.setAttribute('data-theme', stored);
+  window.toggleTheme = function() {
+    var t = document.documentElement.getAttribute('data-theme');
+    var next = (t === 'dark') ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  };
+})();
+</script>
+<style>
+:root {
+  --bg: #ffffff;
+  --bg2: #f8f8f8;
+  --border: #e0e0e0;
+  --text: #1a1a1a;
+  --muted: #666;
+  --accent: #2563eb;
+  --tag-bg: #eef2ff;
+  --tag: #3730a3;
+  --ruby-c: #b45309;
+  --kasra-c: #dc2626;
+  --badge-bg: #f0fdf4;
+  --badge: #166534;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #111827;
+    --bg2: #1f2937;
+    --border: #374151;
+    --text: #f3f4f6;
+    --muted: #9ca3af;
+    --accent: #60a5fa;
+    --tag-bg: #1e3a5f;
+    --tag: #93c5fd;
+    --ruby-c: #fbbf24;
+    --kasra-c: #f87171;
+    --badge-bg: #14532d;
+    --badge: #86efac;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #111827; --bg2: #1f2937; --border: #374151; --text: #f3f4f6;
+  --muted: #9ca3af; --accent: #60a5fa; --tag-bg: #1e3a5f; --tag: #93c5fd;
+  --ruby-c: #fbbf24; --kasra-c: #f87171; --badge-bg: #14532d; --badge: #86efac;
+}
+:root[data-theme="light"] {
+  --bg: #ffffff; --bg2: #f8f8f8; --border: #e0e0e0; --text: #1a1a1a;
+  --muted: #666; --accent: #2563eb; --tag-bg: #eef2ff; --tag: #3730a3;
+  --ruby-c: #b45309; --kasra-c: #dc2626; --badge-bg: #f0fdf4; --badge: #166534;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--text); font-family: system-ui, sans-serif;
+       margin: 0; padding: 24px; line-height: 1.6; }
+h1 { font-size: 1.6rem; margin-bottom: 4px; }
+.subtitle { color: var(--muted); margin-bottom: 28px; font-size: 0.95rem; }
+.tools-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+              margin-bottom: 40px; }
+@media (max-width: 768px) { .tools-grid { grid-template-columns: 1fr; } }
+.tool-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px;
+             padding: 20px; }
+.tool-header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+.tool-name { font-weight: 700; font-size: 1.05rem; }
+.tag { background: var(--tag-bg); color: var(--tag); font-size: 0.72rem;
+       padding: 2px 8px; border-radius: 12px; font-weight: 600; }
+.badge { background: var(--badge-bg); color: var(--badge); font-size: 0.72rem;
+         padding: 2px 8px; border-radius: 12px; font-weight: 600; }
+.tool-desc { color: var(--muted); font-size: 0.85rem; margin-bottom: 16px; }
+.sent-block { margin-bottom: 18px; border-bottom: 1px solid var(--border); padding-bottom: 14px; }
+.sent-block:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.sent-id { font-size: 0.75rem; color: var(--muted); margin-bottom: 4px; }
+.input-text { color: var(--muted); font-size: 0.85rem; direction: rtl; text-align: right;
+              margin-bottom: 6px; font-family: 'Tahoma', 'Segoe UI', serif; }
+.output-text { direction: rtl; text-align: right; font-size: 1.05rem; line-height: 2;
+               font-family: 'Tahoma', 'Segoe UI', serif; }
+.kasra { color: var(--kasra-c); }
+ruby { ruby-position: under; }
+rt { font-size: 0.6em; color: var(--ruby-c); font-family: monospace; }
+.gap-note { background: var(--tag-bg); border: 1px solid var(--border); border-radius: 8px;
+            padding: 16px 20px; margin-bottom: 32px; font-size: 0.9rem; }
+.gap-note strong { color: var(--accent); }
+.legend { font-size: 0.82rem; color: var(--muted); margin-bottom: 24px; }
+.legend span { margin-right: 16px; }
+.section-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 16px; color: var(--text); }
+</style>
+<body>
+<h1>Persian Diacritization — Benchmark</h1>
+<p class="subtitle">
+  Text-to-text: unvoweled Persian input → output with diacritics / pronunciation annotation
+  &nbsp;·&nbsp;
+  <button onclick="toggleTheme()" style="border:1px solid var(--border);background:var(--bg2);
+    color:var(--text);padding:3px 10px;border-radius:6px;cursor:pointer;font-size:0.8rem">
+    toggle theme
+  </button>
+</p>
+
+<div class="gap-note">
+  <strong>State of the art:</strong>
+  Unlike Arabic (CATT, Sadeed, Fine-Tashkeel), <em>dedicated full-diacritization for Persian
+  does not yet exist as an open-source tool</em>. Persian writing almost never uses short vowels
+  outside dictionaries and children's books, so labeled training data is scarce.
+  The two tools below cover what is currently available:
+  (1)&nbsp;Ezafe detection adds the single most common diacritic — the linking&nbsp;/-e/;
+  (2)&nbsp;KaamelDict provides word-level phoneme pronunciation from a 116k-word dictionary.
+</div>
+
+<div class="legend">
+  <span><span class="kasra" style="color:var(--kasra-c)">ِ</span> = kasra added by Ezafe detector</span>
+  <span style="color:var(--ruby-c)">phoneme</span> = KaamelDict G2P annotation (Latin, shown under word)</span>
+</div>
+
+<div class="tools-grid">
+  
+    <div class="tool-card">
+      <div class="tool-header">
+        <span class="tool-name">dadmatools — Ezafe (kasreh)</span>
+        <span class="tag">Neural</span>
+        <span class="badge">Persian</span>
+      </div>
+      <div class="tool-desc">
+        Detects Ezafe constructions (e.g. کتاب<span style="color:var(--kasra-c)">ِ</span> من)
+        and adds kasra&nbsp;ِ to the preceding noun/adjective.
+        Ezafe is the linking vowel&nbsp;/-e/ that connects nouns to their modifiers in Persian —
+        the single most common diacritic omission.
+        Only kasra is added; all other short vowels remain unmarked.
+      </div>
+      
+        <div class="sent-block">
+          <div class="sent-id">#01</div>
+          <div class="input-text">سلام، این یک نمونه صدا برای آزمایش کیفیت مدل تبدیل متن به گفتار فارسی است.</div>
+          <div class="output-text">سلام ، این یک نمونه صدا برای آزمایش کیفیت مدل تبدیل<span class="kasra">ِ</span> متن به گفتار<span class="kasra">ِ</span> فارسی است .</div>
+        </div>
+        <div class="sent-block">
+          <div class="sent-id">#02</div>
+          <div class="input-text">امروز هوا آفتابی است و پرندگان در آسمان آبی پرواز می‌کنند.</div>
+          <div class="output-text">امروز هوا آفتابی است و پرندگان در آسمان آبی پرواز می‌کنند .</div>
+        </div>
+        <div class="sent-block">
+          <div class="sent-id">#03</div>
+          <div class="input-text">کتاب‌خانه‌ی ملی ایران یکی از بزرگ‌ترین کتاب‌خانه‌های خاورمیانه است.</div>
+          <div class="output-text">کتاب‌خانه‌ی ملی ایران یکی از بزرگ‌ترین کتاب‌خانه‌های خاورمیانه است .</div>
+        </div>
+        <div class="sent-block">
+          <div class="sent-id">#04</div>
+          <div class="input-text">آیا می‌توانید ساعت سه بعدازظهر برای جلسه‌ی مهم فردا آماده باشید؟</div>
+          <div class="output-text">آیا می‌توانید ساعت سه بعدازظهر برای جلسه‌ی مهم فردا آماده باشید ؟</div>
+        </div>
+        <div class="sent-block">
+          <div class="sent-id">#05</div>
+          <div class="input-text">شماره‌ی تماس من ۰۹۱۲۳۴۵۶۷۸۹ است و در تاریخ ۱۴۰۳/۰۵/۱۲ به تهران می‌روم.</div>
+          <div class="output-text">شماره‌ی تماس من ۰۹۱۲۳۴۵۶۷۸۹ است و در تاریخ ۱۴۰۳/۰۵/۱۲ به تهران می‌روم .</div>
+        </div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-header">
+        <span class="tool-name">KaamelDict — G2P phoneme annotation</span>
+        <span class="tag">Dictionary</span>
+        <span class="badge">116k entries</span>
+      </div>
+      <div class="tool-desc">
+        Word-level lookup in MahtaFetrat/KaamelDict (116,598 entries).
+        Shows the phonemic pronunciation in compact Latin notation under each word
+        (notation: <code>A</code>=long&nbsp;ā, <code>a</code>=short&nbsp;a,
+        <code>e</code>=short&nbsp;e, <code>o</code>=short&nbsp;o,
+        <code>S</code>=sh, <code>?</code>=ʔ).
+        This is a pronunciation guide, not Arabic-script diacritics —
+        full harakat restoration for Persian has no off-the-shelf tool yet.
+      </div>
+      
+        <div class="sent-block">
+          <div class="sent-id">#01 &nbsp;·&nbsp; 15/15 words in dictionary</div>
+          <div class="input-text">سلام، این یک نمونه صدا برای آزمایش کیفیت مدل تبدیل متن به گفتار فارسی است.</div>
+          <div class="output-text"><ruby>سلام،<rt>salAm</rt></ruby> <ruby>این<rt>?in</rt></ruby> <ruby>یک<rt>yek</rt></ruby> <ruby>نمونه<rt>nemune</rt></ruby> <ruby>صدا<rt>sedA</rt></ruby> <ruby>برای<rt>barAye</rt></ruby> <ruby>آزمایش<rt>?AzmAyeS</rt></ruby> <ruby>کیفیت<rt>keyfiyat</rt></ruby> <ruby>مدل<rt>model</rt></ruby> <ruby>تبدیل<rt>tabdil</rt></ruby> <ruby>متن<rt>matn</rt></ruby> <ruby>به<rt>be</rt></ruby> <ruby>گفتار<rt>goftAr</rt></ruby> <ruby>فارسی<rt>fArsi</rt></ruby> <ruby>است.<rt>?ast</rt></ruby></div>
+        </div>
+        <div class="sent-block">
+          <div class="sent-id">#02 &nbsp;·&nbsp; 11/11 words in dictionary</div>
+          <div class="input-text">امروز هوا آفتابی است و پرندگان در آسمان آبی پرواز می‌کنند.</div>
+          <div class="output-text"><ruby>امروز<rt>?emruz</rt></ruby> <ruby>هوا<rt>havA</rt></ruby> <ruby>آفتابی<rt>?AftAbi</rt></ruby> <ruby>است<rt>?ast</rt></ruby> <ruby>و<rt>?o</rt></ruby> <ruby>پرندگان<rt>parandegAn</rt></ruby> <ruby>در<rt>dar</rt></ruby> <ruby>آسمان<rt>?AsemAn</rt></ruby> <ruby>آبی<rt>?Abi</rt></ruby> <ruby>پرواز<rt>parvAz</rt></ruby> <ruby>می‌کنند.<rt>mikonand</rt></ruby></div>
+        </div>
+        <div class="sent-block">
+          <div class="sent-id">#03 &nbsp;·&nbsp; 6/9 words in dictionary</div>
+          <div class="input-text">کتاب‌خانه‌ی ملی ایران یکی از بزرگ‌ترین کتاب‌خانه‌های خاورمیانه است.</div>
+          <div class="output-text">کتاب‌خانه‌ی <ruby>ملی<rt>melli</rt></ruby> <ruby>ایران<rt>?irAn</rt></ruby> <ruby>یکی<rt>yeki</rt></ruby> <ruby>از<rt>?az</rt></ruby> بزرگ‌ترین کتاب‌خانه‌های <ruby>خاورمیانه<rt>xAvaremiyAne</rt></ruby> <ruby>است.<rt>?ast</rt></ruby></div>
+        </div>
+        <div class="sent-block">
+          <div class="sent-id">#04 &nbsp;·&nbsp; 9/11 words in dictionary</div>
+          <div class="input-text">آیا می‌توانید ساعت سه بعدازظهر برای جلسه‌ی مهم فردا آماده باشید؟</div>
+          <div class="output-text"><ruby>آیا<rt>?AyA</rt></ruby> <ruby>می‌توانید<rt>mitavAnid</rt></ruby> <ruby>ساعت<rt>sAat</rt></ruby> <ruby>سه<rt>se</rt></ruby> بعدازظهر <ruby>برای<rt>barAye</rt></ruby> جلسه‌ی <ruby>مهم<rt>mohem</rt></ruby> <ruby>فردا<rt>fardA</rt></ruby> <ruby>آماده<rt>?AmAde</rt></ruby> <ruby>باشید؟<rt>bASid</rt></ruby></div>
+        </div>
+        <div class="sent-block">
+          <div class="sent-id">#05 &nbsp;·&nbsp; 8/12 words in dictionary</div>
+          <div class="input-text">شماره‌ی تماس من ۰۹۱۲۳۴۵۶۷۸۹ است و در تاریخ ۱۴۰۳/۰۵/۱۲ به تهران می‌روم.</div>
+          <div class="output-text">شماره‌ی <ruby>تماس<rt>tamAs</rt></ruby> <ruby>من<rt>man</rt></ruby> ۰۹۱۲۳۴۵۶۷۸۹ <ruby>است<rt>?ast</rt></ruby> <ruby>و<rt>?o</rt></ruby> <ruby>در<rt>dar</rt></ruby> <ruby>تاریخ<rt>tArix</rt></ruby> ۱۴۰۳/۰۵/۱۲ <ruby>به<rt>be</rt></ruby> <ruby>تهران<rt>tehrAn</rt></ruby> می‌روم.</div>
+        </div>
+    </div>
+</div>
+
+<p style="font-size:0.8rem;color:var(--muted)">
+  Tools: <a href="https://github.com/Dadmatech/DadmaTools" style="color:var(--accent)">dadmatools</a>
+  (XLM-RoBERTa kasreh classifier) ·
+  <a href="https://huggingface.co/datasets/MahtaFetrat/KaamelDict" style="color:var(--accent)">MahtaFetrat/KaamelDict</a>
+  (G2P dictionary) · Sample sentences from
+  <a href="index.html" style="color:var(--accent)">Persian TTS benchmark</a>
+</p>
+</body>

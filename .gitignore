@@ -4,3 +4,4 @@ __pycache__/
 # Virtualenvs (coqui lives in its own venv; never commit it)
 .venvs/
 venv/
+cache/
