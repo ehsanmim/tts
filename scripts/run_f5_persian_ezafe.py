@@ -1,18 +1,22 @@
 #!/usr/bin/env python3
-"""F5-TTS Persian — tuned + Ezafe diacritization.
+"""F5-TTS Persian — tuned + Ezafe + KaamelDict word diacritics.
 
-Three-stage text front-end before synthesis:
-  1. normalize_fa  — digits/dates/phones → Persian words (num2fawords)
-  2. apply_ezafe   — adds kasra ِ to Ezafe-bearing words via
-                     abreza/persian-ezafe-albert (F1 98.7%)
-  3. F5-TTS infer  — nfe_step=48, cfg_strength=2.0 (same as tuned)
+Four-stage text front-end before synthesis:
+  1. normalize_fa    — digits/dates/phones → Persian words (num2fawords)
+  2. apply_ezafe     — adds kasra ِ to Ezafe-bearing words via
+                       abreza/persian-ezafe-albert (F1 98.7%)
+  3. diacritize_kaameldict — adds fatha/kasra/damma/sukun to each word
+                       via KaamelDict phoneme lookup (116k entries)
+  4. F5-TTS infer    — nfe_step=48, cfg_strength=2.0
 
-Kasra in the input text gives F5-TTS an explicit phonetic cue for the
-linking vowel, potentially improving Ezafe pronunciation.
+The combined pipeline gives F5-TTS explicit phonetic cues for both the
+Ezafe linking vowel and word-internal short vowels (e.g. مَتْن vs مَتَن).
 
 Run:    .venvs/f5/bin/python scripts/run_f5_persian_ezafe.py [N]
 Output: docs/audio/f5-persian-ezafe/NN.wav
 """
+import ast
+import csv
 import os
 import re
 import sys
@@ -32,13 +36,33 @@ NFE = 48
 CFG = 2.0
 N = int(sys.argv[1]) if len(sys.argv) > 1 else 999
 
-KASRA = "ِ"  # Arabic kasra U+0650
+KASRA  = "ِ"   # U+0650
+FATHA  = "َ"   # U+064E
+DAMMA  = "ُ"   # U+064F
+SUKUN  = "ْ"   # U+0652
 
 # Persian/Arabic-Indic digits → ASCII
 _DIGIT_MAP = {}
 for _base in (0x06F0, 0x0660):
     for _i in range(10):
         _DIGIT_MAP[_base + _i] = str(_i)
+
+# KaamelDict phoneme notation
+SHORT_V = {"a": FATHA, "e": KASRA, "o": DAMMA}
+LONG_V  = set("Aiu")
+CONS_PH = set("bptsjchxdzrZSGfqkglmnhyv?")
+# Maps Persian consonant chars to their primary phoneme symbol in KaamelDict
+CHAR_PH = {
+    "ب": "b", "پ": "p", "ت": "t", "ث": "s", "ج": "j", "چ": "c",
+    "ح": "h", "خ": "x", "د": "d", "ذ": "z", "ر": "r", "ز": "z",
+    "ژ": "Z", "س": "s", "ش": "S", "ص": "s", "ض": "z", "ط": "t",
+    "ظ": "z", "ع": "?", "غ": "G", "ف": "f", "ق": "q", "ک": "k",
+    "گ": "g", "ل": "l", "م": "m", "ن": "n", "ه": "h",
+}
+# Zero-width chars and tatweel to skip silently
+_SKIP = {"‌", "‍", "ـ"}
+# Punctuation to strip when looking up a word
+_PUNCT = set("،.؟!()[]؛,:»«")
 
 
 def normalize_fa(text: str) -> str:
@@ -86,6 +110,140 @@ def apply_ezafe(tok, model, id2label, text: str) -> str:
     return " ".join(result)
 
 
+def load_kaameldict() -> dict:
+    print("Loading KaamelDict ...")
+    path = hf_hub_download("MahtaFetrat/KaamelDict", "KaamelDict.csv",
+                           repo_type="dataset")
+    lookup: dict[str, str] = {}
+    with open(path, encoding="utf-8") as f:
+        for row in csv.DictReader(f):
+            phones = ast.literal_eval(row["phoneme"])
+            if not phones:
+                continue
+            seq = phones[0] if isinstance(phones[0], (list, tuple)) else phones
+            if not seq:
+                continue
+            lookup[row["grapheme"].strip()] = "".join(seq)
+    return lookup
+
+
+def _add_diacritics(word: str, ph_str: str) -> str:
+    """Add fatha/kasra/damma/sukun to a single Persian word given its KaamelDict phoneme string."""
+    phs = list(ph_str)
+    pi = 0
+    result: list[str] = []
+
+    def peek():
+        return phs[pi] if pi < len(phs) else None
+
+    def consume():
+        nonlocal pi
+        pi += 1
+
+    def after_cons():
+        """After appending a consonant char, check next phoneme and add vowel diacritic or sukun."""
+        n = peek()
+        if n in SHORT_V:
+            result.append(SHORT_V[n])
+            consume()
+        elif n in LONG_V or n is None:
+            pass  # long vowel follows (letter will handle it) or word ends
+        else:
+            result.append(SUKUN)
+
+    for ch in word:
+        if ch in _SKIP:
+            result.append(ch)
+            continue
+        n = peek()
+        if n is None:
+            result.append(ch)
+            continue
+
+        if ch == "آ":
+            result.append(ch)
+            if peek() == "?":
+                consume()
+            if peek() == "A":
+                consume()
+            continue
+
+        if ch == "ا":
+            if n == "?":
+                result.append(ch)
+                consume()
+                after_cons()
+            elif n == "A":
+                result.append(ch)
+                consume()
+            else:
+                result.append(ch)
+            continue
+
+        if ch == "و":
+            if n == "v":
+                result.append(ch)
+                consume()
+                after_cons()
+            elif n == "u":
+                result.append(ch)
+                consume()
+            else:
+                result.append(ch)
+            continue
+
+        if ch in "یي":
+            if n == "y":
+                result.append(ch)
+                consume()
+                after_cons()
+            elif n == "i":
+                result.append(ch)
+                consume()
+            else:
+                result.append(ch)
+            continue
+
+        if ch in CHAR_PH:
+            # Skip any non-consonant phonemes (shouldn't normally happen mid-word)
+            while pi < len(phs) and phs[pi] not in CONS_PH:
+                pi += 1
+            if pi < len(phs):
+                consume()
+            result.append(ch)
+            after_cons()
+            continue
+
+        # Unknown char (diacritics already present, punctuation inside word, etc.)
+        result.append(ch)
+
+    return "".join(result)
+
+
+def diacritize_sentence(text: str, lookup: dict) -> str:
+    """Add word-internal diacritics to each token using KaamelDict lookup."""
+    out = []
+    for tok in text.split():
+        # Strip leading/trailing punctuation for lookup
+        key = tok
+        prefix = ""
+        suffix = ""
+        while key and key[0] in _PUNCT:
+            prefix += key[0]
+            key = key[1:]
+        while key and key[-1] in _PUNCT:
+            suffix = key[-1] + suffix
+            key = key[:-1]
+
+        # Try with and without zero-width non-joiner
+        ph = lookup.get(key) or lookup.get(key.replace("‌", "").replace("‍", ""))
+        if ph:
+            out.append(prefix + _add_diacritics(key, ph) + suffix)
+        else:
+            out.append(tok)
+    return " ".join(out)
+
+
 def read_sentences(path):
     items = []
     with open(path, encoding="utf-8") as f:
@@ -103,20 +261,24 @@ def main():
     os.makedirs(OUT_DIR, exist_ok=True)
 
     albert_tok, albert_model, id2label = load_albert()
+    kaamel = load_kaameldict()
 
     from f5_tts.api import F5TTS
-    ckpt = hf_hub_download("Lumos675/F5_TTS_Persian", "model_last.pt")
+    ckpt  = hf_hub_download("Lumos675/F5_TTS_Persian", "model_last.pt")
     vocab = hf_hub_download("Lumos675/F5_TTS_Persian", "vocab.txt")
     print(f"Loading F5-TTS Persian (CPU, nfe={NFE}, cfg={CFG}) ...")
     f5 = F5TTS(model="F5TTS_v1_Base", ckpt_file=ckpt, vocab_file=vocab, device="cpu")
 
     sents = read_sentences(SENT_FILE)
-    ref_raw = dict(sents)[REF_ID]
-    ref_text = apply_ezafe(albert_tok, albert_model, id2label, normalize_fa(ref_raw))
+    ref_raw   = dict(sents)[REF_ID]
+    ref_normed  = normalize_fa(ref_raw)
+    ref_ezafe   = apply_ezafe(albert_tok, albert_model, id2label, ref_normed)
+    ref_text    = diacritize_sentence(ref_ezafe, kaamel)
 
     for sid, text in sents[:N]:
         normed = normalize_fa(text)
-        final = apply_ezafe(albert_tok, albert_model, id2label, normed)
+        ezafed = apply_ezafe(albert_tok, albert_model, id2label, normed)
+        final  = diacritize_sentence(ezafed, kaamel)
         if final != text:
             print(f"  [{sid}] → {final}")
         out = os.path.join(OUT_DIR, f"{sid}.wav")
