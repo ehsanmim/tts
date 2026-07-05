@@ -62,6 +62,16 @@
       "notes": "Heavy autoregressive model (~0.5B). GATED repo (needs HF token). ~20s/sentence on CPU. Voice cloning — conditioned on a Persian reference clip. Non-commercial."
     },
     {
+      "id": "chatterbox-persian-ezafe",
+      "name": "Chatterbox-Persian — Ezafe + harakat, expressive",
+      "hf_url": "https://huggingface.co/Thomcles/Chatterbox-TTS-Persian-Farsi",
+      "engine": "chatterbox-tts (T3 fa finetune) + fa_diacritics front-end",
+      "voice": "voice-cloned from a Persian reference clip",
+      "sample_rate": 24000,
+      "cpu_rtf": "~4 (slow)",
+      "notes": "Same Farsi Chatterbox but fed the diacritized text front-end (digits→words, Ezafe kasra via ALBERT, KaamelDict word-internal harakat with number-homograph fixes: صِفْر نُه) and exaggeration raised 0.5→0.7 for a more emotive delivery. GATED repo (needs HF token). Non-commercial."
+    },
+    {
       "id": "mana-piper",
       "name": "MahtaFetrat — Mana-Persian-Piper",
       "hf_url": "https://huggingface.co/MahtaFetrat/Mana-Persian-Piper",
