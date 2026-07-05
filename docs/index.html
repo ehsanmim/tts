@@ -171,14 +171,14 @@
         <p class="notes">Same model as f5-persian, TUNED: numbers/dates normalized to Persian words (phone numbers digit-by-digit), nfe_step 32-&gt;48. Fixes the digit/date mispronunciations and steadies output.</p>
       </div>
       <div class="card">
-        <h3><a href="https://huggingface.co/Lumos675/F5_TTS_Persian" target="_blank" rel="noopener">F5-TTS Persian — tuned + Ezafe</a></h3>
+        <h3><a href="https://huggingface.co/Lumos675/F5_TTS_Persian" target="_blank" rel="noopener">F5-TTS Persian — tuned + Ezafe + harakat</a></h3>
         <dl>
-          <dt>Engine</dt><dd>F5-TTS v1 + text normalization + abreza/persian-ezafe-albert</dd>
+          <dt>Engine</dt><dd>F5-TTS v1 + text normalization + abreza/persian-ezafe-albert + KaamelDict G2P</dd>
           <dt>Voice</dt><dd>cloned from a Persian reference clip</dd>
           <dt>Sample rate</dt><dd>24000 Hz</dd>
           <dt>CPU RTF</dt><dd>~22 (~2min/sentence)</dd>
         </dl>
-        <p class="notes">Same as f5-persian-tuned but adds a third front-end stage: abreza/persian-ezafe-albert (F1 98.7%) inserts kasra ِ on Ezafe-bearing words before synthesis. Gives F5-TTS an explicit phonetic cue for the linking vowel /-e/.</p>
+        <p class="notes">Same as f5-persian-tuned but with two more front-end stages: abreza/persian-ezafe-albert (F1 98.7%) inserts kasra ِ on Ezafe-bearing words, then KaamelDict (116k-word G2P) adds word-internal fatha/kasra/damma/sukun. Homograph overrides pick the number reading for digit-derived words (صِفْر not صَفَر, نُه not نَه).</p>
       </div></div>
   <h2>Side-by-side samples</h2>
   
@@ -231,7 +231,7 @@
             <audio controls preload="none" src="audio/f5-persian-tuned/01.wav"></audio>
           </div>
           <div class="model-row">
-            <span class="model-name">F5-TTS Persian — tuned + Ezafe</span>
+            <span class="model-name">F5-TTS Persian — tuned + Ezafe + harakat</span>
             <audio controls preload="none" src="audio/f5-persian-ezafe/01.wav"></audio>
           </div></div>
       </section>
@@ -284,7 +284,7 @@
             <audio controls preload="none" src="audio/f5-persian-tuned/02.wav"></audio>
           </div>
           <div class="model-row">
-            <span class="model-name">F5-TTS Persian — tuned + Ezafe</span>
+            <span class="model-name">F5-TTS Persian — tuned + Ezafe + harakat</span>
             <audio controls preload="none" src="audio/f5-persian-ezafe/02.wav"></audio>
           </div></div>
       </section>
@@ -337,7 +337,7 @@
             <audio controls preload="none" src="audio/f5-persian-tuned/03.wav"></audio>
           </div>
           <div class="model-row">
-            <span class="model-name">F5-TTS Persian — tuned + Ezafe</span>
+            <span class="model-name">F5-TTS Persian — tuned + Ezafe + harakat</span>
             <audio controls preload="none" src="audio/f5-persian-ezafe/03.wav"></audio>
           </div></div>
       </section>
@@ -390,7 +390,7 @@
             <audio controls preload="none" src="audio/f5-persian-tuned/04.wav"></audio>
           </div>
           <div class="model-row">
-            <span class="model-name">F5-TTS Persian — tuned + Ezafe</span>
+            <span class="model-name">F5-TTS Persian — tuned + Ezafe + harakat</span>
             <audio controls preload="none" src="audio/f5-persian-ezafe/04.wav"></audio>
           </div></div>
       </section>
@@ -443,7 +443,7 @@
             <audio controls preload="none" src="audio/f5-persian-tuned/05.wav"></audio>
           </div>
           <div class="model-row">
-            <span class="model-name">F5-TTS Persian — tuned + Ezafe</span>
+            <span class="model-name">F5-TTS Persian — tuned + Ezafe + harakat</span>
             <audio controls preload="none" src="audio/f5-persian-ezafe/05.wav"></audio>
           </div></div>
       </section>
