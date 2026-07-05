@@ -54,9 +54,8 @@
 <body>
 <header>
   <h1>Persian TTS Quality Comparison</h1>
-  <p class="sub">11 model(s) · 5 sentences · same text, side by side.
-  Source list: <a href="https://huggingface.co/models?pipeline_tag=text-to-speech&language=fa&sort=trending" target="_blank" rel="noopener">Hugging Face fa TTS</a>
-  · <a href="diacritics.html">Persian Diacritization →</a></p>
+  <p class="sub">12 model(s) · 5 sentences · same text, side by side.
+  Source list: <a href="https://huggingface.co/models?pipeline_tag=text-to-speech&language=fa&sort=trending" target="_blank" rel="noopener">Hugging Face fa TTS</a></p>
 </header>
 <main>
   <h2>Models</h2>
@@ -170,6 +169,16 @@
           <dt>CPU RTF</dt><dd>~22 (~2min/sentence)</dd>
         </dl>
         <p class="notes">Same model as f5-persian, TUNED: numbers/dates normalized to Persian words (phone numbers digit-by-digit), nfe_step 32-&gt;48. Fixes the digit/date mispronunciations and steadies output.</p>
+      </div>
+      <div class="card">
+        <h3><a href="https://huggingface.co/Lumos675/F5_TTS_Persian" target="_blank" rel="noopener">F5-TTS Persian — tuned + Ezafe</a></h3>
+        <dl>
+          <dt>Engine</dt><dd>F5-TTS v1 + text normalization + abreza/persian-ezafe-albert</dd>
+          <dt>Voice</dt><dd>cloned from a Persian reference clip</dd>
+          <dt>Sample rate</dt><dd>24000 Hz</dd>
+          <dt>CPU RTF</dt><dd>~22 (~2min/sentence)</dd>
+        </dl>
+        <p class="notes">Same as f5-persian-tuned but adds a third front-end stage: abreza/persian-ezafe-albert (F1 98.7%) inserts kasra ِ on Ezafe-bearing words before synthesis. Gives F5-TTS an explicit phonetic cue for the linking vowel /-e/.</p>
       </div></div>
   <h2>Side-by-side samples</h2>
   
@@ -220,6 +229,10 @@
           <div class="model-row">
             <span class="model-name">F5-TTS Persian — tuned</span>
             <audio controls preload="none" src="audio/f5-persian-tuned/01.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">F5-TTS Persian — tuned + Ezafe</span>
+            <audio controls preload="none" src="audio/f5-persian-ezafe/01.wav"></audio>
           </div></div>
       </section>
       <section class="sentence">
@@ -269,6 +282,10 @@
           <div class="model-row">
             <span class="model-name">F5-TTS Persian — tuned</span>
             <audio controls preload="none" src="audio/f5-persian-tuned/02.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">F5-TTS Persian — tuned + Ezafe</span>
+            <audio controls preload="none" src="audio/f5-persian-ezafe/02.wav"></audio>
           </div></div>
       </section>
       <section class="sentence">
@@ -318,6 +335,10 @@
           <div class="model-row">
             <span class="model-name">F5-TTS Persian — tuned</span>
             <audio controls preload="none" src="audio/f5-persian-tuned/03.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">F5-TTS Persian — tuned + Ezafe</span>
+            <audio controls preload="none" src="audio/f5-persian-ezafe/03.wav"></audio>
           </div></div>
       </section>
       <section class="sentence">
@@ -367,6 +388,10 @@
           <div class="model-row">
             <span class="model-name">F5-TTS Persian — tuned</span>
             <audio controls preload="none" src="audio/f5-persian-tuned/04.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">F5-TTS Persian — tuned + Ezafe</span>
+            <audio controls preload="none" src="audio/f5-persian-ezafe/04.wav"></audio>
           </div></div>
       </section>
       <section class="sentence">
@@ -416,6 +441,10 @@
           <div class="model-row">
             <span class="model-name">F5-TTS Persian — tuned</span>
             <audio controls preload="none" src="audio/f5-persian-tuned/05.wav"></audio>
+          </div>
+          <div class="model-row">
+            <span class="model-name">F5-TTS Persian — tuned + Ezafe</span>
+            <audio controls preload="none" src="audio/f5-persian-ezafe/05.wav"></audio>
           </div></div>
       </section>
 </main>
