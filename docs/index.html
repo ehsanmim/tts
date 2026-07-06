@@ -75,7 +75,7 @@
 <body>
 <header>
   <h1>Persian TTS Quality Comparison</h1>
-  <p class="sub">13 model(s) · 8 A/B diacritized pairs · 5 sentences · same text, side by side.
+  <p class="sub">13 model(s) · 10 A/B diacritized pairs · 5 sentences · same text, side by side.
   Source list: <a href="https://huggingface.co/models?pipeline_tag=text-to-speech&language=fa&sort=trending" target="_blank" rel="noopener">Hugging Face fa TTS</a></p>
 </header>
 <main>
@@ -189,8 +189,8 @@
         </dl>
         <p class="notes">SOTA / ElevenLabs-tier, 44.1 kHz — highest fidelity here. GPU model (SGLang) forced onto CPU via swap: ~34 min/sentence, so only sentence 01 was generated as a quality probe. Non-commercial research license.</p>
       </div>
-      <div class="card">
-        <h3><a href="https://huggingface.co/Lumos675/F5_TTS_Persian" target="_blank" rel="noopener">Lumos675 — F5-TTS Persian</a></h3>
+      <div class="card card-ab">
+        <h3><a href="https://huggingface.co/Lumos675/F5_TTS_Persian" target="_blank" rel="noopener">Lumos675 — F5-TTS Persian</a> <span class="ab-badge">A/B</span></h3>
         <dl>
           <dt>Engine</dt><dd>F5-TTS v1 (flow-matching DiT) + vocos</dd>
           <dt>Voice</dt><dd>cloned from a Persian reference clip</dd>
@@ -198,9 +198,10 @@
           <dt>CPU RTF</dt><dd>~15 (~90s/sentence)</dd>
         </dl>
         <p class="notes">F5-TTS flow-matching finetune — ships its own char vocab (complete). Zero-shot cloning, Apache-2.0. ~90s/sentence on CPU. A leading open naturalness candidate for Persian.</p>
+        <div class="diac-notes"><strong>+ diacritized:</strong> Same model as f5-persian, fed sentences_diacritized.txt (Full TTS front-end: digits→words, Ezafe kasra, KaamelDict harakat). nfe_step=32, seed=42. A/B against f5-persian.</div>
       </div>
-      <div class="card">
-        <h3><a href="https://huggingface.co/Lumos675/F5_TTS_Persian" target="_blank" rel="noopener">F5-TTS Persian — tuned</a></h3>
+      <div class="card card-ab">
+        <h3><a href="https://huggingface.co/Lumos675/F5_TTS_Persian" target="_blank" rel="noopener">F5-TTS Persian — tuned</a> <span class="ab-badge">A/B</span></h3>
         <dl>
           <dt>Engine</dt><dd>F5-TTS v1 + Persian text normalization</dd>
           <dt>Voice</dt><dd>cloned from a Persian reference clip</dd>
@@ -208,6 +209,7 @@
           <dt>CPU RTF</dt><dd>~22 (~2min/sentence)</dd>
         </dl>
         <p class="notes">Same model as f5-persian, TUNED: numbers/dates normalized to Persian words (phone numbers digit-by-digit), nfe_step 32-&gt;48. Fixes the digit/date mispronunciations and steadies output.</p>
+        <div class="diac-notes"><strong>+ diacritized:</strong> Same model and settings as f5-persian-tuned (nfe=48, cfg=2.0), fed sentences_diacritized.txt. Digits already converted to words by the front-end, so no inline normalize_fa needed. A/B against f5-persian-tuned.</div>
       </div>
       <div class="card">
         <h3><a href="https://huggingface.co/Lumos675/F5_TTS_Persian" target="_blank" rel="noopener">F5-TTS Persian — tuned + Ezafe + harakat</a></h3>
@@ -329,13 +331,29 @@
             <span class="model-name">Fish Audio — s2-pro (CPU probe)</span>
             <audio controls preload="none" src="audio/s2-pro/01.wav"></audio>
           </div>
-          <div class="model-row">
-            <span class="model-name">Lumos675 — F5-TTS Persian</span>
-            <audio controls preload="none" src="audio/f5-persian/01.wav"></audio>
+          <div class="ab-pair">
+            <div class="model-row ab-plain">
+              <span class="model-name">Lumos675 — F5-TTS Persian</span>
+              <span class="ab-label ab-label-plain">PLAIN</span>
+              <audio controls preload="none" src="audio/f5-persian/01.wav"></audio>
+            </div>
+            <div class="model-row ab-diac">
+              <span class="model-name">F5-TTS Persian — diacritized input</span>
+              <span class="ab-label ab-label-diac">DIAC</span>
+              <audio controls preload="none" src="audio/f5-persian-diac/01.wav"></audio>
+            </div>
           </div>
-          <div class="model-row">
-            <span class="model-name">F5-TTS Persian — tuned</span>
-            <audio controls preload="none" src="audio/f5-persian-tuned/01.wav"></audio>
+          <div class="ab-pair">
+            <div class="model-row ab-plain">
+              <span class="model-name">F5-TTS Persian — tuned</span>
+              <span class="ab-label ab-label-plain">PLAIN</span>
+              <audio controls preload="none" src="audio/f5-persian-tuned/01.wav"></audio>
+            </div>
+            <div class="model-row ab-diac">
+              <span class="model-name">F5-TTS Persian — tuned + diacritized input</span>
+              <span class="ab-label ab-label-diac">DIAC</span>
+              <audio controls preload="none" src="audio/f5-persian-tuned-diac/01.wav"></audio>
+            </div>
           </div>
           <div class="model-row">
             <span class="model-name">F5-TTS Persian — tuned + Ezafe + harakat</span>
@@ -450,13 +468,29 @@
             <span class="model-name">Fish Audio — s2-pro (CPU probe)</span>
             <span class="missing">—</span>
           </div>
-          <div class="model-row">
-            <span class="model-name">Lumos675 — F5-TTS Persian</span>
-            <audio controls preload="none" src="audio/f5-persian/02.wav"></audio>
+          <div class="ab-pair">
+            <div class="model-row ab-plain">
+              <span class="model-name">Lumos675 — F5-TTS Persian</span>
+              <span class="ab-label ab-label-plain">PLAIN</span>
+              <audio controls preload="none" src="audio/f5-persian/02.wav"></audio>
+            </div>
+            <div class="model-row ab-diac">
+              <span class="model-name">F5-TTS Persian — diacritized input</span>
+              <span class="ab-label ab-label-diac">DIAC</span>
+              <audio controls preload="none" src="audio/f5-persian-diac/02.wav"></audio>
+            </div>
           </div>
-          <div class="model-row">
-            <span class="model-name">F5-TTS Persian — tuned</span>
-            <audio controls preload="none" src="audio/f5-persian-tuned/02.wav"></audio>
+          <div class="ab-pair">
+            <div class="model-row ab-plain">
+              <span class="model-name">F5-TTS Persian — tuned</span>
+              <span class="ab-label ab-label-plain">PLAIN</span>
+              <audio controls preload="none" src="audio/f5-persian-tuned/02.wav"></audio>
+            </div>
+            <div class="model-row ab-diac">
+              <span class="model-name">F5-TTS Persian — tuned + diacritized input</span>
+              <span class="ab-label ab-label-diac">DIAC</span>
+              <audio controls preload="none" src="audio/f5-persian-tuned-diac/02.wav"></audio>
+            </div>
           </div>
           <div class="model-row">
             <span class="model-name">F5-TTS Persian — tuned + Ezafe + harakat</span>
@@ -571,13 +605,29 @@
             <span class="model-name">Fish Audio — s2-pro (CPU probe)</span>
             <span class="missing">—</span>
           </div>
-          <div class="model-row">
-            <span class="model-name">Lumos675 — F5-TTS Persian</span>
-            <audio controls preload="none" src="audio/f5-persian/03.wav"></audio>
+          <div class="ab-pair">
+            <div class="model-row ab-plain">
+              <span class="model-name">Lumos675 — F5-TTS Persian</span>
+              <span class="ab-label ab-label-plain">PLAIN</span>
+              <audio controls preload="none" src="audio/f5-persian/03.wav"></audio>
+            </div>
+            <div class="model-row ab-diac">
+              <span class="model-name">F5-TTS Persian — diacritized input</span>
+              <span class="ab-label ab-label-diac">DIAC</span>
+              <audio controls preload="none" src="audio/f5-persian-diac/03.wav"></audio>
+            </div>
           </div>
-          <div class="model-row">
-            <span class="model-name">F5-TTS Persian — tuned</span>
-            <audio controls preload="none" src="audio/f5-persian-tuned/03.wav"></audio>
+          <div class="ab-pair">
+            <div class="model-row ab-plain">
+              <span class="model-name">F5-TTS Persian — tuned</span>
+              <span class="ab-label ab-label-plain">PLAIN</span>
+              <audio controls preload="none" src="audio/f5-persian-tuned/03.wav"></audio>
+            </div>
+            <div class="model-row ab-diac">
+              <span class="model-name">F5-TTS Persian — tuned + diacritized input</span>
+              <span class="ab-label ab-label-diac">DIAC</span>
+              <audio controls preload="none" src="audio/f5-persian-tuned-diac/03.wav"></audio>
+            </div>
           </div>
           <div class="model-row">
             <span class="model-name">F5-TTS Persian — tuned + Ezafe + harakat</span>
@@ -692,13 +742,29 @@
             <span class="model-name">Fish Audio — s2-pro (CPU probe)</span>
             <span class="missing">—</span>
           </div>
-          <div class="model-row">
-            <span class="model-name">Lumos675 — F5-TTS Persian</span>
-            <audio controls preload="none" src="audio/f5-persian/04.wav"></audio>
+          <div class="ab-pair">
+            <div class="model-row ab-plain">
+              <span class="model-name">Lumos675 — F5-TTS Persian</span>
+              <span class="ab-label ab-label-plain">PLAIN</span>
+              <audio controls preload="none" src="audio/f5-persian/04.wav"></audio>
+            </div>
+            <div class="model-row ab-diac">
+              <span class="model-name">F5-TTS Persian — diacritized input</span>
+              <span class="ab-label ab-label-diac">DIAC</span>
+              <audio controls preload="none" src="audio/f5-persian-diac/04.wav"></audio>
+            </div>
           </div>
-          <div class="model-row">
-            <span class="model-name">F5-TTS Persian — tuned</span>
-            <audio controls preload="none" src="audio/f5-persian-tuned/04.wav"></audio>
+          <div class="ab-pair">
+            <div class="model-row ab-plain">
+              <span class="model-name">F5-TTS Persian — tuned</span>
+              <span class="ab-label ab-label-plain">PLAIN</span>
+              <audio controls preload="none" src="audio/f5-persian-tuned/04.wav"></audio>
+            </div>
+            <div class="model-row ab-diac">
+              <span class="model-name">F5-TTS Persian — tuned + diacritized input</span>
+              <span class="ab-label ab-label-diac">DIAC</span>
+              <audio controls preload="none" src="audio/f5-persian-tuned-diac/04.wav"></audio>
+            </div>
           </div>
           <div class="model-row">
             <span class="model-name">F5-TTS Persian — tuned + Ezafe + harakat</span>
@@ -813,13 +879,29 @@
             <span class="model-name">Fish Audio — s2-pro (CPU probe)</span>
             <span class="missing">—</span>
           </div>
-          <div class="model-row">
-            <span class="model-name">Lumos675 — F5-TTS Persian</span>
-            <audio controls preload="none" src="audio/f5-persian/05.wav"></audio>
+          <div class="ab-pair">
+            <div class="model-row ab-plain">
+              <span class="model-name">Lumos675 — F5-TTS Persian</span>
+              <span class="ab-label ab-label-plain">PLAIN</span>
+              <audio controls preload="none" src="audio/f5-persian/05.wav"></audio>
+            </div>
+            <div class="model-row ab-diac">
+              <span class="model-name">F5-TTS Persian — diacritized input</span>
+              <span class="ab-label ab-label-diac">DIAC</span>
+              <audio controls preload="none" src="audio/f5-persian-diac/05.wav"></audio>
+            </div>
           </div>
-          <div class="model-row">
-            <span class="model-name">F5-TTS Persian — tuned</span>
-            <audio controls preload="none" src="audio/f5-persian-tuned/05.wav"></audio>
+          <div class="ab-pair">
+            <div class="model-row ab-plain">
+              <span class="model-name">F5-TTS Persian — tuned</span>
+              <span class="ab-label ab-label-plain">PLAIN</span>
+              <audio controls preload="none" src="audio/f5-persian-tuned/05.wav"></audio>
+            </div>
+            <div class="model-row ab-diac">
+              <span class="model-name">F5-TTS Persian — tuned + diacritized input</span>
+              <span class="ab-label ab-label-diac">DIAC</span>
+              <audio controls preload="none" src="audio/f5-persian-tuned-diac/05.wav"></audio>
+            </div>
           </div>
           <div class="model-row">
             <span class="model-name">F5-TTS Persian — tuned + Ezafe + harakat</span>
