@@ -75,7 +75,7 @@
 <body>
 <header>
   <h1>Persian TTS Quality Comparison</h1>
-  <p class="sub">13 model(s) · 7 A/B diacritized pairs · 5 sentences · same text, side by side.
+  <p class="sub">13 model(s) · 8 A/B diacritized pairs · 5 sentences · same text, side by side.
   Source list: <a href="https://huggingface.co/models?pipeline_tag=text-to-speech&language=fa&sort=trending" target="_blank" rel="noopener">Hugging Face fa TTS</a></p>
 </header>
 <main>
@@ -136,8 +136,8 @@
         <p class="notes">MMS-style VITS finetune loaded via transformers (no espeak). Same code path as mms-tts-fas. 16 kHz.</p>
         <div class="diac-notes"><strong>+ diacritized:</strong> Same model as seyedali-mms, fed sentences_diacritized.txt. Char-level VITS — test whether explicit harakat improves Ezafe and homograph pronunciation. A/B against seyedali-mms.</div>
       </div>
-      <div class="card">
-        <h3><a href="https://huggingface.co/Thomcles/Chatterbox-TTS-Persian-Farsi" target="_blank" rel="noopener">Thomcles — Chatterbox-TTS-Persian-Farsi</a></h3>
+      <div class="card card-ab">
+        <h3><a href="https://huggingface.co/Thomcles/Chatterbox-TTS-Persian-Farsi" target="_blank" rel="noopener">Thomcles — Chatterbox-TTS-Persian-Farsi</a> <span class="ab-badge">A/B</span></h3>
         <dl>
           <dt>Engine</dt><dd>chatterbox-tts (multilingual, T3 fa finetune)</dd>
           <dt>Voice</dt><dd>voice-cloned from a Persian reference clip</dd>
@@ -145,6 +145,7 @@
           <dt>CPU RTF</dt><dd>~4 (slow)</dd>
         </dl>
         <p class="notes">Heavy autoregressive model (~0.5B). GATED repo (needs HF token). ~20s/sentence on CPU. Voice cloning — conditioned on a Persian reference clip. Non-commercial.</p>
+        <div class="diac-notes"><strong>+ diacritized:</strong> Same model as chatterbox-persian, fed sentences_diacritized.txt (Full TTS front-end: digits→words, Ezafe kasra, KaamelDict harakat). A/B against chatterbox-persian. GATED repo (needs HF token). Non-commercial.</div>
       </div>
       <div class="card">
         <h3><a href="https://huggingface.co/Thomcles/Chatterbox-TTS-Persian-Farsi" target="_blank" rel="noopener">Chatterbox-Persian — Ezafe + harakat, expressive</a></h3>
@@ -284,9 +285,17 @@
               <audio controls preload="none" src="audio/seyedali-mms-diac/01.wav"></audio>
             </div>
           </div>
-          <div class="model-row">
-            <span class="model-name">Thomcles — Chatterbox-TTS-Persian-Farsi</span>
-            <audio controls preload="none" src="audio/chatterbox-persian/01.wav"></audio>
+          <div class="ab-pair">
+            <div class="model-row ab-plain">
+              <span class="model-name">Thomcles — Chatterbox-TTS-Persian-Farsi</span>
+              <span class="ab-label ab-label-plain">PLAIN</span>
+              <audio controls preload="none" src="audio/chatterbox-persian/01.wav"></audio>
+            </div>
+            <div class="model-row ab-diac">
+              <span class="model-name">Thomcles — Chatterbox-TTS-Persian-Farsi — diacritized input</span>
+              <span class="ab-label ab-label-diac">DIAC</span>
+              <audio controls preload="none" src="audio/chatterbox-persian-diac/01.wav"></audio>
+            </div>
           </div>
           <div class="model-row">
             <span class="model-name">Chatterbox-Persian — Ezafe + harakat, expressive</span>
@@ -397,9 +406,17 @@
               <audio controls preload="none" src="audio/seyedali-mms-diac/02.wav"></audio>
             </div>
           </div>
-          <div class="model-row">
-            <span class="model-name">Thomcles — Chatterbox-TTS-Persian-Farsi</span>
-            <audio controls preload="none" src="audio/chatterbox-persian/02.wav"></audio>
+          <div class="ab-pair">
+            <div class="model-row ab-plain">
+              <span class="model-name">Thomcles — Chatterbox-TTS-Persian-Farsi</span>
+              <span class="ab-label ab-label-plain">PLAIN</span>
+              <audio controls preload="none" src="audio/chatterbox-persian/02.wav"></audio>
+            </div>
+            <div class="model-row ab-diac">
+              <span class="model-name">Thomcles — Chatterbox-TTS-Persian-Farsi — diacritized input</span>
+              <span class="ab-label ab-label-diac">DIAC</span>
+              <audio controls preload="none" src="audio/chatterbox-persian-diac/02.wav"></audio>
+            </div>
           </div>
           <div class="model-row">
             <span class="model-name">Chatterbox-Persian — Ezafe + harakat, expressive</span>
@@ -510,9 +527,17 @@
               <audio controls preload="none" src="audio/seyedali-mms-diac/03.wav"></audio>
             </div>
           </div>
-          <div class="model-row">
-            <span class="model-name">Thomcles — Chatterbox-TTS-Persian-Farsi</span>
-            <audio controls preload="none" src="audio/chatterbox-persian/03.wav"></audio>
+          <div class="ab-pair">
+            <div class="model-row ab-plain">
+              <span class="model-name">Thomcles — Chatterbox-TTS-Persian-Farsi</span>
+              <span class="ab-label ab-label-plain">PLAIN</span>
+              <audio controls preload="none" src="audio/chatterbox-persian/03.wav"></audio>
+            </div>
+            <div class="model-row ab-diac">
+              <span class="model-name">Thomcles — Chatterbox-TTS-Persian-Farsi — diacritized input</span>
+              <span class="ab-label ab-label-diac">DIAC</span>
+              <audio controls preload="none" src="audio/chatterbox-persian-diac/03.wav"></audio>
+            </div>
           </div>
           <div class="model-row">
             <span class="model-name">Chatterbox-Persian — Ezafe + harakat, expressive</span>
@@ -623,9 +648,17 @@
               <audio controls preload="none" src="audio/seyedali-mms-diac/04.wav"></audio>
             </div>
           </div>
-          <div class="model-row">
-            <span class="model-name">Thomcles — Chatterbox-TTS-Persian-Farsi</span>
-            <audio controls preload="none" src="audio/chatterbox-persian/04.wav"></audio>
+          <div class="ab-pair">
+            <div class="model-row ab-plain">
+              <span class="model-name">Thomcles — Chatterbox-TTS-Persian-Farsi</span>
+              <span class="ab-label ab-label-plain">PLAIN</span>
+              <audio controls preload="none" src="audio/chatterbox-persian/04.wav"></audio>
+            </div>
+            <div class="model-row ab-diac">
+              <span class="model-name">Thomcles — Chatterbox-TTS-Persian-Farsi — diacritized input</span>
+              <span class="ab-label ab-label-diac">DIAC</span>
+              <audio controls preload="none" src="audio/chatterbox-persian-diac/04.wav"></audio>
+            </div>
           </div>
           <div class="model-row">
             <span class="model-name">Chatterbox-Persian — Ezafe + harakat, expressive</span>
@@ -736,9 +769,17 @@
               <audio controls preload="none" src="audio/seyedali-mms-diac/05.wav"></audio>
             </div>
           </div>
-          <div class="model-row">
-            <span class="model-name">Thomcles — Chatterbox-TTS-Persian-Farsi</span>
-            <audio controls preload="none" src="audio/chatterbox-persian/05.wav"></audio>
+          <div class="ab-pair">
+            <div class="model-row ab-plain">
+              <span class="model-name">Thomcles — Chatterbox-TTS-Persian-Farsi</span>
+              <span class="ab-label ab-label-plain">PLAIN</span>
+              <audio controls preload="none" src="audio/chatterbox-persian/05.wav"></audio>
+            </div>
+            <div class="model-row ab-diac">
+              <span class="model-name">Thomcles — Chatterbox-TTS-Persian-Farsi — diacritized input</span>
+              <span class="ab-label ab-label-diac">DIAC</span>
+              <audio controls preload="none" src="audio/chatterbox-persian-diac/05.wav"></audio>
+            </div>
           </div>
           <div class="model-row">
             <span class="model-name">Chatterbox-Persian — Ezafe + harakat, expressive</span>
