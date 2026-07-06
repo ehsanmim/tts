@@ -43,9 +43,8 @@ body { background:var(--bg); color:var(--text); font-family:system-ui,sans-serif
        margin:0; padding:24px; line-height:1.6; }
 h1 { font-size:1.6rem; margin-bottom:4px; }
 .subtitle { color:var(--muted); margin-bottom:28px; font-size:0.95rem; }
-.tools-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:20px;
+.tools-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px;
               margin-bottom:40px; }
-@media (max-width:1000px) { .tools-grid { grid-template-columns:1fr 1fr; } }
 @media (max-width:640px)  { .tools-grid { grid-template-columns:1fr; } }
 .tool-card { background:var(--bg2); border:1px solid var(--border);
              border-radius:10px; padding:20px; }
@@ -95,6 +94,9 @@ rt { font-size:0.58em; color:var(--ruby-c); font-family:monospace; }
   <strong>abreza/persian-ezafe-albert</strong> (F1&nbsp;98.7%) is the current
   best option; dadmatools' kasreh has lower recall.
   KaamelDict adds word-level G2P phoneme pronunciation.
+  Combining ALBERT Ezafe with KaamelDict-driven harakat placement
+  (<strong>Full TTS front-end</strong> card) gets close to full
+  diacritization for dictionary words.
 </div>
 
 <div class="legend">
@@ -227,6 +229,55 @@ rt { font-size:0.58em; color:var(--ruby-c); font-family:monospace; }
           <div class="sent-id">#05 &nbsp;·&nbsp; 8/12 words</div>
           <div class="input-text">شماره‌ی تماس من ۰۹۱۲۳۴۵۶۷۸۹ است و در تاریخ ۱۴۰۳/۰۵/۱۲ به تهران می‌روم.</div>
           <div class="output-text">شماره‌ی <ruby>تماس<rt>tamAs</rt></ruby> <ruby>من<rt>man</rt></ruby> ۰۹۱۲۳۴۵۶۷۸۹ <ruby>است<rt>?ast</rt></ruby> <ruby>و<rt>?o</rt></ruby> <ruby>در<rt>dar</rt></ruby> <ruby>تاریخ<rt>tArix</rt></ruby> ۱۴۰۳/۰۵/۱۲ <ruby>به<rt>be</rt></ruby> <ruby>تهران<rt>tehrAn</rt></ruby> می‌روم.</div>
+        </div>
+    </div>
+  
+    <div class="tool-card best">
+      <div class="tool-header">
+        <span class="tool-name">Full TTS front-end</span>
+        <span class="tag">Pipeline</span>
+        <span class="best-badge">★ fed to TTS</span>
+      </div>
+      <div class="tool-desc">
+        <code>fa_diacritics.py</code> — the three stages combined:
+        digits→words (num2fawords), ALBERT Ezafe kasra, then KaamelDict-driven
+        word-internal harakat (fatha/kasra/damma/sukun) with homograph
+        overrides for digit-derived words
+        (<span style="direction:rtl">صِفْر</span> zero not
+        <span style="direction:rtl">صَفَر</span> the month,
+        <span style="direction:rtl">نُه</span> nine not
+        <span style="direction:rtl">نَه</span> no).
+        This exact text drives the f5-persian-ezafe and
+        chatterbox-persian-ezafe voices on the
+        <a href="index.html" style="color:var(--accent)">TTS benchmark</a>.
+        All added marks in
+        <span class="kasra" style="color:var(--kasra-c)">red</span>.
+      </div>
+      
+        <div class="sent-block">
+          <div class="sent-id">#01</div>
+          <div class="input-text">سلام، این یک نمونه صدا برای آزمایش کیفیت مدل تبدیل متن به گفتار فارسی است.</div>
+          <div class="output-text">س<span class="kasra">َ</span>لام، این ی<span class="kasra">ِ</span>ک ن<span class="kasra">ِ</span>مون<span class="kasra">ِ</span>ه ص<span class="kasra">ِ</span>دا ب<span class="kasra">َ</span>رای<span class="kasra">ِ</span> آز<span class="kasra">ْ</span>مای<span class="kasra">ِ</span>ش<span class="kasra">ِ</span> ک<span class="kasra">ِ</span>ی<span class="kasra">ْ</span>فیت<span class="kasra">ِ</span> م<span class="kasra">ُ</span>د<span class="kasra">ِ</span>ل<span class="kasra">ِ</span> ت<span class="kasra">َ</span>ب<span class="kasra">ْ</span>دیل<span class="kasra">ِ</span> م<span class="kasra">َ</span>ت<span class="kasra">ْ</span>ن ب<span class="kasra">ِ</span>ه گ<span class="kasra">ُ</span>ف<span class="kasra">ْ</span>تار<span class="kasra">ِ</span> فار<span class="kasra">ْ</span>سی ا<span class="kasra">َ</span>س<span class="kasra">ْ</span>ت.</div>
+        </div>
+        <div class="sent-block">
+          <div class="sent-id">#02</div>
+          <div class="input-text">امروز هوا آفتابی است و پرندگان در آسمان آبی پرواز می‌کنند.</div>
+          <div class="output-text">ا<span class="kasra">ِ</span>م<span class="kasra">ْ</span>روز ه<span class="kasra">َ</span>وا آف<span class="kasra">ْ</span>تابی ا<span class="kasra">َ</span>س<span class="kasra">ْ</span>ت و پ<span class="kasra">َ</span>ر<span class="kasra">َ</span>ن<span class="kasra">ْ</span>د<span class="kasra">ِ</span>گان د<span class="kasra">َ</span>ر آس<span class="kasra">ِ</span>مان<span class="kasra">ِ</span> آبی پ<span class="kasra">َ</span>ر<span class="kasra">ْ</span>واز می‌ک<span class="kasra">ُ</span>ن<span class="kasra">َ</span>ن<span class="kasra">ْ</span>د.</div>
+        </div>
+        <div class="sent-block">
+          <div class="sent-id">#03</div>
+          <div class="input-text">کتاب‌خانه‌ی ملی ایران یکی از بزرگ‌ترین کتاب‌خانه‌های خاورمیانه است.</div>
+          <div class="output-text">کتاب‌خانه‌ی<span class="kasra">ِ</span> م<span class="kasra">ِ</span>لی<span class="kasra">ِ</span> ایران ی<span class="kasra">ِ</span>کی ا<span class="kasra">َ</span>ز بزرگ‌ترین کتاب‌خانه‌های<span class="kasra">ِ</span> خاو<span class="kasra">َ</span>ر<span class="kasra">ِ</span>میان<span class="kasra">ِ</span>ه ا<span class="kasra">َ</span>س<span class="kasra">ْ</span>ت.</div>
+        </div>
+        <div class="sent-block">
+          <div class="sent-id">#04</div>
+          <div class="input-text">آیا می‌توانید ساعت سه بعدازظهر برای جلسه‌ی مهم فردا آماده باشید؟</div>
+          <div class="output-text">آیا می‌ت<span class="kasra">َ</span>وانید ساع<span class="kasra">َ</span>ت<span class="kasra">ِ</span> س<span class="kasra">ِ</span>ه<span class="kasra">ِ</span> بعدازظهر ب<span class="kasra">َ</span>رای<span class="kasra">ِ</span> جلسه‌ی<span class="kasra">ِ</span> م<span class="kasra">ُ</span>ه<span class="kasra">ِ</span>م<span class="kasra">ِ</span> ف<span class="kasra">َ</span>ر<span class="kasra">ْ</span>دا آماد<span class="kasra">ِ</span>ه باشید؟</div>
+        </div>
+        <div class="sent-block">
+          <div class="sent-id">#05</div>
+          <div class="input-text">شماره‌ی تماس من ۰۹۱۲۳۴۵۶۷۸۹ است و در تاریخ ۱۴۰۳/۰۵/۱۲ به تهران می‌روم.</div>
+          <div class="output-text">شماره‌ی<span class="kasra">ِ</span> ت<span class="kasra">َ</span>ماس<span class="kasra">ِ</span> م<span class="kasra">َ</span>ن ص<span class="kasra">ِ</span>ف<span class="kasra">ْ</span>ر ن<span class="kasra">ُ</span>ه ی<span class="kasra">ِ</span>ک د<span class="kasra">ُ</span>و س<span class="kasra">ِ</span>ه چهار پ<span class="kasra">َ</span>ن<span class="kasra">ْ</span>ج ش<span class="kasra">ِ</span>ش ه<span class="kasra">َ</span>ف<span class="kasra">ْ</span>ت ه<span class="kasra">َ</span>ش<span class="kasra">ْ</span>ت ن<span class="kasra">ُ</span>ه ا<span class="kasra">َ</span>س<span class="kasra">ْ</span>ت و د<span class="kasra">َ</span>ر تاریخ<span class="kasra">ِ</span> ی<span class="kasra">ِ</span>ک ه<span class="kasra">َ</span>زار و چهار<span class="kasra">ْ</span>ص<span class="kasra">َ</span>د و س<span class="kasra">ِ</span>ه پ<span class="kasra">َ</span>ن<span class="kasra">ْ</span>ج د<span class="kasra">َ</span>واز<span class="kasra">ْ</span>د<span class="kasra">َ</span>ه ب<span class="kasra">ِ</span>ه ت<span class="kasra">ِ</span>ه<span class="kasra">ْ</span>ران می‌ر<span class="kasra">َ</span>و<span class="kasra">َ</span>م.</div>
         </div>
     </div>
 </div>

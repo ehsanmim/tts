@@ -10,6 +10,11 @@ Tools:
      dictionary; word-level lookup returns the pronunciation in compact Latin
      notation (e.g. سلام → salAm). Output is Latin phonemes, not Arabic
      diacritics — shown as ruby annotations on the page.
+  4. Full TTS front-end (fa_diacritics.py) — digits→words (num2fawords),
+     ALBERT Ezafe kasra, then KaamelDict-driven word-internal harakat
+     (fatha/kasra/damma/sukun) with homograph overrides (صِفْر not صَفَر,
+     نُه not نَه). This is the exact text fed to the F5/Chatterbox ezafe
+     variants on the TTS benchmark page.
 
 Run:    .venvs/diacritics/bin/python scripts/run_diacritics.py
 Output: docs/diacritics.html
@@ -27,6 +32,7 @@ SENT_FILE = os.path.join(HERE, "sample_texts", "sentences.txt")
 OUT_HTML = os.path.join(HERE, "docs", "diacritics.html")
 
 KASRA = "ِ"  # Arabic kasra
+HARAKAT = {"ِ", "َ", "ُ", "ْ"}  # kasra, fatha, damma, sukun
 
 
 # ── helpers ──────────────────────────────────────────────────────────────────
@@ -143,9 +149,8 @@ body { background:var(--bg); color:var(--text); font-family:system-ui,sans-serif
        margin:0; padding:24px; line-height:1.6; }
 h1 { font-size:1.6rem; margin-bottom:4px; }
 .subtitle { color:var(--muted); margin-bottom:28px; font-size:0.95rem; }
-.tools-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:20px;
+.tools-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px;
               margin-bottom:40px; }
-@media (max-width:1000px) { .tools-grid { grid-template-columns:1fr 1fr; } }
 @media (max-width:640px)  { .tools-grid { grid-template-columns:1fr; } }
 .tool-card { background:var(--bg2); border:1px solid var(--border);
              border-radius:10px; padding:20px; }
@@ -204,6 +209,16 @@ def render_kasra_html(text):
     return "".join(parts)
 
 
+def render_harakat_html(text):
+    parts = []
+    for ch in text:
+        if ch in HARAKAT:
+            parts.append(f'<span class="kasra">{ch}</span>')
+        else:
+            parts.append(escape(ch))
+    return "".join(parts)
+
+
 def render_kaamel_html(annotated):
     parts = []
     for word, phoneme in annotated:
@@ -214,7 +229,7 @@ def render_kaamel_html(annotated):
     return " ".join(parts)
 
 
-def build_html(sentences, dadma_out, albert_out, kaamel_out):
+def build_html(sentences, dadma_out, albert_out, kaamel_out, pipeline_out):
     def sent_blocks(outputs, render_fn):
         html = ""
         for (sid, orig), out in zip(sentences, outputs):
@@ -284,6 +299,31 @@ def build_html(sentences, dadma_out, albert_out, kaamel_out):
       {sent_blocks(kaamel_out, render_kaamel_html)}
     </div>"""
 
+    card4 = f"""
+    <div class="tool-card best">
+      <div class="tool-header">
+        <span class="tool-name">Full TTS front-end</span>
+        <span class="tag">Pipeline</span>
+        <span class="best-badge">★ fed to TTS</span>
+      </div>
+      <div class="tool-desc">
+        <code>fa_diacritics.py</code> — the three stages combined:
+        digits→words (num2fawords), ALBERT Ezafe kasra, then KaamelDict-driven
+        word-internal harakat (fatha/kasra/damma/sukun) with homograph
+        overrides for digit-derived words
+        (<span style="direction:rtl">صِفْر</span> zero not
+        <span style="direction:rtl">صَفَر</span> the month,
+        <span style="direction:rtl">نُه</span> nine not
+        <span style="direction:rtl">نَه</span> no).
+        This exact text drives the f5-persian-ezafe and
+        chatterbox-persian-ezafe voices on the
+        <a href="index.html" style="color:var(--accent)">TTS benchmark</a>.
+        All added marks in
+        <span class="kasra" style="color:var(--kasra-c)">red</span>.
+      </div>
+      {sent_blocks(pipeline_out, render_harakat_html)}
+    </div>"""
+
     return f"""<title>Persian Diacritization — Benchmark</title>
 <script>{JS}</script>
 <style>{CSS}</style>
@@ -307,6 +347,9 @@ def build_html(sentences, dadma_out, albert_out, kaamel_out):
   <strong>abreza/persian-ezafe-albert</strong> (F1&nbsp;98.7%) is the current
   best option; dadmatools' kasreh has lower recall.
   KaamelDict adds word-level G2P phoneme pronunciation.
+  Combining ALBERT Ezafe with KaamelDict-driven harakat placement
+  (<strong>Full TTS front-end</strong> card) gets close to full
+  diacritization for dictionary words.
 </div>
 
 <div class="legend">
@@ -318,6 +361,7 @@ def build_html(sentences, dadma_out, albert_out, kaamel_out):
   {card1}
   {card2}
   {card3}
+  {card4}
 </div>
 
 <p style="font-size:0.8rem;color:var(--muted)">
@@ -346,15 +390,20 @@ def main():
     print("Loading KaamelDict ...")
     lookup = load_kaameldict()
 
-    dadma_out, albert_out, kaamel_out = [], [], []
+    print("Loading full TTS front-end ...")
+    from fa_diacritics import Frontend
+    frontend = Frontend()
+
+    dadma_out, albert_out, kaamel_out, pipeline_out = [], [], [], []
 
     for sid, text in sentences:
         print(f"  [{sid}] ...")
         dadma_out.append(apply_kasreh_dadma(dadma_pipeline, text))
         albert_out.append(apply_albert_ezafe(albert_model, albert_tok, id2label, text))
         kaamel_out.append(annotate_kaameldict(lookup, text))
+        pipeline_out.append(frontend(text))
 
-    html = build_html(sentences, dadma_out, albert_out, kaamel_out)
+    html = build_html(sentences, dadma_out, albert_out, kaamel_out, pipeline_out)
     with open(OUT_HTML, "w", encoding="utf-8") as f:
         f.write(html)
     print(f"Done → {OUT_HTML}")
