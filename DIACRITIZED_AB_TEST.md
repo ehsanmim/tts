@@ -91,6 +91,8 @@ For each model in [`models.json`](models.json) that we want to A/B test:
 | `seyedali-mms` | ✅ `docs/audio/seyedali-mms/` | ✅ `docs/audio/seyedali-mms-diac/` | char-level tokenizer — same code path as mms-tts-fas |
 | `kamtera-female-vits` | ✅ `docs/audio/kamtera-female-vits/` | ✅ `docs/audio/kamtera-female-vits-diac/` | espeak-ng re-phonemizes |
 | `kamtera-male-vits` | ✅ `docs/audio/kamtera-male-vits/` | ✅ `docs/audio/kamtera-male-vits-diac/` | espeak-ng re-phonemizes |
+| `karim-gptinformal-vits` | ✅ `docs/audio/karim-gptinformal-vits/` | ✅ `docs/audio/karim-gptinformal-vits-diac/` | espeak-ng re-phonemizes; informal voice |
+| `toucan-persian` | ✅ `docs/audio/toucan-persian/` | ✅ `docs/audio/toucan-persian-diac/` | espeak-ng 'pes' re-phonemizes |
 
 The comparison page (`docs/index.html`) now shows each model as a **PLAIN / DIAC** pair
 (blue row vs green row) for every sentence, so the A/B comparison is one click.

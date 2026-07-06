@@ -75,6 +75,17 @@
       "notes": "Trained on informal/colloquial Persian (GPTInformal dataset) — a more conversational tone. 24 kHz."
     },
     {
+      "id": "karim-gptinformal-vits-diac",
+      "name": "karim23657 — GPTInformal-Persian VITS — diacritized input",
+      "hf_url": "https://huggingface.co/karim23657/persian-tts-female-GPTInformal-Persian-vits",
+      "engine": "Coqui TTS (VITS) + espeak-ng",
+      "voice": "female, informal/colloquial style",
+      "sample_rate": 24000,
+      "cpu_rtf": "0.24",
+      "ab_pair": "karim-gptinformal-vits",
+      "notes": "Same model as karim-gptinformal-vits, fed sentences_diacritized.txt. espeak-ng re-phonemizes; test whether added harakat helps or hurts G2P on an informal-voice model. A/B against karim-gptinformal-vits."
+    },
+    {
       "id": "seyedali-mms",
       "name": "SeyedAli — Persian-Speech-synthesis-MMS",
       "hf_url": "https://huggingface.co/SeyedAli/Persian-Speech-synthesis-MMS",
@@ -145,6 +156,17 @@
       "sample_rate": 24000,
       "cpu_rtf": "~1 (seconds/sentence)",
       "notes": "SOTA multilingual model (7000+ langs), Persian id 'pes'. Flow-matching decoder + zero-shot voice cloning. Runs on CPU (~5-8s/sentence). Research-grade quality."
+    },
+    {
+      "id": "toucan-persian-diac",
+      "name": "IMS-Toucan — ToucanTTS (pes) — diacritized input",
+      "hf_url": "https://github.com/DigitalPhonetics/IMS-Toucan",
+      "engine": "ToucanTTS (flow-matching, multilingual) + espeak-ng",
+      "voice": "zero-shot cloned from a Persian reference clip",
+      "sample_rate": 24000,
+      "cpu_rtf": "~1 (seconds/sentence)",
+      "ab_pair": "toucan-persian",
+      "notes": "Same model as toucan-persian, fed sentences_diacritized.txt. espeak-ng re-phonemizes 'pes'; test whether explicit harakat improves Ezafe and homograph reading. A/B against toucan-persian."
     },
     {
       "id": "s2-pro",

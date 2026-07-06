@@ -75,7 +75,7 @@
 <body>
 <header>
   <h1>Persian TTS Quality Comparison</h1>
-  <p class="sub">13 model(s) · 5 A/B diacritized pairs · 5 sentences · same text, side by side.
+  <p class="sub">13 model(s) · 7 A/B diacritized pairs · 5 sentences · same text, side by side.
   Source list: <a href="https://huggingface.co/models?pipeline_tag=text-to-speech&language=fa&sort=trending" target="_blank" rel="noopener">Hugging Face fa TTS</a></p>
 </header>
 <main>
@@ -114,8 +114,8 @@
         <p class="notes">Coqui-format VITS, male counterpart to the female model. 22.05 kHz.</p>
         <div class="diac-notes"><strong>+ diacritized:</strong> Same model as kamtera-male-vits, fed sentences_diacritized.txt. espeak-ng re-phonemizes; test whether added harakat helps or hurts G2P. A/B against kamtera-male-vits.</div>
       </div>
-      <div class="card">
-        <h3><a href="https://huggingface.co/karim23657/persian-tts-female-GPTInformal-Persian-vits" target="_blank" rel="noopener">karim23657 — GPTInformal-Persian VITS</a></h3>
+      <div class="card card-ab">
+        <h3><a href="https://huggingface.co/karim23657/persian-tts-female-GPTInformal-Persian-vits" target="_blank" rel="noopener">karim23657 — GPTInformal-Persian VITS</a> <span class="ab-badge">A/B</span></h3>
         <dl>
           <dt>Engine</dt><dd>Coqui TTS (VITS) + espeak-ng</dd>
           <dt>Voice</dt><dd>female, informal/colloquial style</dd>
@@ -123,6 +123,7 @@
           <dt>CPU RTF</dt><dd>0.24</dd>
         </dl>
         <p class="notes">Trained on informal/colloquial Persian (GPTInformal dataset) — a more conversational tone. 24 kHz.</p>
+        <div class="diac-notes"><strong>+ diacritized:</strong> Same model as karim-gptinformal-vits, fed sentences_diacritized.txt. espeak-ng re-phonemizes; test whether added harakat helps or hurts G2P on an informal-voice model. A/B against karim-gptinformal-vits.</div>
       </div>
       <div class="card card-ab">
         <h3><a href="https://huggingface.co/SeyedAli/Persian-Speech-synthesis-MMS" target="_blank" rel="noopener">SeyedAli — Persian-Speech-synthesis-MMS</a> <span class="ab-badge">A/B</span></h3>
@@ -166,8 +167,8 @@
         <p class="notes">Piper voice trained on the curated ManaTTS corpus. Clean pronunciation, deterministic, ~0.2s/sentence on CPU. Ready-made ONNX — trivial to run. MIT.</p>
         <div class="diac-notes"><strong>+ diacritized:</strong> Same model as mana-piper, fed sentences_diacritized.txt. espeak-ng re-phonemizes; test whether added harakat helps or hurts G2P. A/B against mana-piper.</div>
       </div>
-      <div class="card">
-        <h3><a href="https://github.com/DigitalPhonetics/IMS-Toucan" target="_blank" rel="noopener">IMS-Toucan — ToucanTTS (pes)</a></h3>
+      <div class="card card-ab">
+        <h3><a href="https://github.com/DigitalPhonetics/IMS-Toucan" target="_blank" rel="noopener">IMS-Toucan — ToucanTTS (pes)</a> <span class="ab-badge">A/B</span></h3>
         <dl>
           <dt>Engine</dt><dd>ToucanTTS (flow-matching, multilingual) + espeak-ng</dd>
           <dt>Voice</dt><dd>zero-shot cloned from a Persian reference clip</dd>
@@ -175,6 +176,7 @@
           <dt>CPU RTF</dt><dd>~1 (seconds/sentence)</dd>
         </dl>
         <p class="notes">SOTA multilingual model (7000+ langs), Persian id &#x27;pes&#x27;. Flow-matching decoder + zero-shot voice cloning. Runs on CPU (~5-8s/sentence). Research-grade quality.</p>
+        <div class="diac-notes"><strong>+ diacritized:</strong> Same model as toucan-persian, fed sentences_diacritized.txt. espeak-ng re-phonemizes &#x27;pes&#x27;; test whether explicit harakat improves Ezafe and homograph reading. A/B against toucan-persian.</div>
       </div>
       <div class="card">
         <h3><a href="https://huggingface.co/fishaudio/s2-pro" target="_blank" rel="noopener">Fish Audio — s2-pro (CPU probe)</a></h3>
@@ -258,9 +260,17 @@
               <audio controls preload="none" src="audio/kamtera-male-vits-diac/01.wav"></audio>
             </div>
           </div>
-          <div class="model-row">
-            <span class="model-name">karim23657 — GPTInformal-Persian VITS</span>
-            <audio controls preload="none" src="audio/karim-gptinformal-vits/01.wav"></audio>
+          <div class="ab-pair">
+            <div class="model-row ab-plain">
+              <span class="model-name">karim23657 — GPTInformal-Persian VITS</span>
+              <span class="ab-label ab-label-plain">PLAIN</span>
+              <audio controls preload="none" src="audio/karim-gptinformal-vits/01.wav"></audio>
+            </div>
+            <div class="model-row ab-diac">
+              <span class="model-name">karim23657 — GPTInformal-Persian VITS — diacritized input</span>
+              <span class="ab-label ab-label-diac">DIAC</span>
+              <audio controls preload="none" src="audio/karim-gptinformal-vits-diac/01.wav"></audio>
+            </div>
           </div>
           <div class="ab-pair">
             <div class="model-row ab-plain">
@@ -294,9 +304,17 @@
               <audio controls preload="none" src="audio/mana-piper-diac/01.wav"></audio>
             </div>
           </div>
-          <div class="model-row">
-            <span class="model-name">IMS-Toucan — ToucanTTS (pes)</span>
-            <audio controls preload="none" src="audio/toucan-persian/01.wav"></audio>
+          <div class="ab-pair">
+            <div class="model-row ab-plain">
+              <span class="model-name">IMS-Toucan — ToucanTTS (pes)</span>
+              <span class="ab-label ab-label-plain">PLAIN</span>
+              <audio controls preload="none" src="audio/toucan-persian/01.wav"></audio>
+            </div>
+            <div class="model-row ab-diac">
+              <span class="model-name">IMS-Toucan — ToucanTTS (pes) — diacritized input</span>
+              <span class="ab-label ab-label-diac">DIAC</span>
+              <audio controls preload="none" src="audio/toucan-persian-diac/01.wav"></audio>
+            </div>
           </div>
           <div class="model-row">
             <span class="model-name">Fish Audio — s2-pro (CPU probe)</span>
@@ -355,9 +373,17 @@
               <audio controls preload="none" src="audio/kamtera-male-vits-diac/02.wav"></audio>
             </div>
           </div>
-          <div class="model-row">
-            <span class="model-name">karim23657 — GPTInformal-Persian VITS</span>
-            <audio controls preload="none" src="audio/karim-gptinformal-vits/02.wav"></audio>
+          <div class="ab-pair">
+            <div class="model-row ab-plain">
+              <span class="model-name">karim23657 — GPTInformal-Persian VITS</span>
+              <span class="ab-label ab-label-plain">PLAIN</span>
+              <audio controls preload="none" src="audio/karim-gptinformal-vits/02.wav"></audio>
+            </div>
+            <div class="model-row ab-diac">
+              <span class="model-name">karim23657 — GPTInformal-Persian VITS — diacritized input</span>
+              <span class="ab-label ab-label-diac">DIAC</span>
+              <audio controls preload="none" src="audio/karim-gptinformal-vits-diac/02.wav"></audio>
+            </div>
           </div>
           <div class="ab-pair">
             <div class="model-row ab-plain">
@@ -391,9 +417,17 @@
               <audio controls preload="none" src="audio/mana-piper-diac/02.wav"></audio>
             </div>
           </div>
-          <div class="model-row">
-            <span class="model-name">IMS-Toucan — ToucanTTS (pes)</span>
-            <audio controls preload="none" src="audio/toucan-persian/02.wav"></audio>
+          <div class="ab-pair">
+            <div class="model-row ab-plain">
+              <span class="model-name">IMS-Toucan — ToucanTTS (pes)</span>
+              <span class="ab-label ab-label-plain">PLAIN</span>
+              <audio controls preload="none" src="audio/toucan-persian/02.wav"></audio>
+            </div>
+            <div class="model-row ab-diac">
+              <span class="model-name">IMS-Toucan — ToucanTTS (pes) — diacritized input</span>
+              <span class="ab-label ab-label-diac">DIAC</span>
+              <audio controls preload="none" src="audio/toucan-persian-diac/02.wav"></audio>
+            </div>
           </div>
           <div class="model-row">
             <span class="model-name">Fish Audio — s2-pro (CPU probe)</span>
@@ -452,9 +486,17 @@
               <audio controls preload="none" src="audio/kamtera-male-vits-diac/03.wav"></audio>
             </div>
           </div>
-          <div class="model-row">
-            <span class="model-name">karim23657 — GPTInformal-Persian VITS</span>
-            <audio controls preload="none" src="audio/karim-gptinformal-vits/03.wav"></audio>
+          <div class="ab-pair">
+            <div class="model-row ab-plain">
+              <span class="model-name">karim23657 — GPTInformal-Persian VITS</span>
+              <span class="ab-label ab-label-plain">PLAIN</span>
+              <audio controls preload="none" src="audio/karim-gptinformal-vits/03.wav"></audio>
+            </div>
+            <div class="model-row ab-diac">
+              <span class="model-name">karim23657 — GPTInformal-Persian VITS — diacritized input</span>
+              <span class="ab-label ab-label-diac">DIAC</span>
+              <audio controls preload="none" src="audio/karim-gptinformal-vits-diac/03.wav"></audio>
+            </div>
           </div>
           <div class="ab-pair">
             <div class="model-row ab-plain">
@@ -488,9 +530,17 @@
               <audio controls preload="none" src="audio/mana-piper-diac/03.wav"></audio>
             </div>
           </div>
-          <div class="model-row">
-            <span class="model-name">IMS-Toucan — ToucanTTS (pes)</span>
-            <audio controls preload="none" src="audio/toucan-persian/03.wav"></audio>
+          <div class="ab-pair">
+            <div class="model-row ab-plain">
+              <span class="model-name">IMS-Toucan — ToucanTTS (pes)</span>
+              <span class="ab-label ab-label-plain">PLAIN</span>
+              <audio controls preload="none" src="audio/toucan-persian/03.wav"></audio>
+            </div>
+            <div class="model-row ab-diac">
+              <span class="model-name">IMS-Toucan — ToucanTTS (pes) — diacritized input</span>
+              <span class="ab-label ab-label-diac">DIAC</span>
+              <audio controls preload="none" src="audio/toucan-persian-diac/03.wav"></audio>
+            </div>
           </div>
           <div class="model-row">
             <span class="model-name">Fish Audio — s2-pro (CPU probe)</span>
@@ -549,9 +599,17 @@
               <audio controls preload="none" src="audio/kamtera-male-vits-diac/04.wav"></audio>
             </div>
           </div>
-          <div class="model-row">
-            <span class="model-name">karim23657 — GPTInformal-Persian VITS</span>
-            <audio controls preload="none" src="audio/karim-gptinformal-vits/04.wav"></audio>
+          <div class="ab-pair">
+            <div class="model-row ab-plain">
+              <span class="model-name">karim23657 — GPTInformal-Persian VITS</span>
+              <span class="ab-label ab-label-plain">PLAIN</span>
+              <audio controls preload="none" src="audio/karim-gptinformal-vits/04.wav"></audio>
+            </div>
+            <div class="model-row ab-diac">
+              <span class="model-name">karim23657 — GPTInformal-Persian VITS — diacritized input</span>
+              <span class="ab-label ab-label-diac">DIAC</span>
+              <audio controls preload="none" src="audio/karim-gptinformal-vits-diac/04.wav"></audio>
+            </div>
           </div>
           <div class="ab-pair">
             <div class="model-row ab-plain">
@@ -585,9 +643,17 @@
               <audio controls preload="none" src="audio/mana-piper-diac/04.wav"></audio>
             </div>
           </div>
-          <div class="model-row">
-            <span class="model-name">IMS-Toucan — ToucanTTS (pes)</span>
-            <audio controls preload="none" src="audio/toucan-persian/04.wav"></audio>
+          <div class="ab-pair">
+            <div class="model-row ab-plain">
+              <span class="model-name">IMS-Toucan — ToucanTTS (pes)</span>
+              <span class="ab-label ab-label-plain">PLAIN</span>
+              <audio controls preload="none" src="audio/toucan-persian/04.wav"></audio>
+            </div>
+            <div class="model-row ab-diac">
+              <span class="model-name">IMS-Toucan — ToucanTTS (pes) — diacritized input</span>
+              <span class="ab-label ab-label-diac">DIAC</span>
+              <audio controls preload="none" src="audio/toucan-persian-diac/04.wav"></audio>
+            </div>
           </div>
           <div class="model-row">
             <span class="model-name">Fish Audio — s2-pro (CPU probe)</span>
@@ -646,9 +712,17 @@
               <audio controls preload="none" src="audio/kamtera-male-vits-diac/05.wav"></audio>
             </div>
           </div>
-          <div class="model-row">
-            <span class="model-name">karim23657 — GPTInformal-Persian VITS</span>
-            <audio controls preload="none" src="audio/karim-gptinformal-vits/05.wav"></audio>
+          <div class="ab-pair">
+            <div class="model-row ab-plain">
+              <span class="model-name">karim23657 — GPTInformal-Persian VITS</span>
+              <span class="ab-label ab-label-plain">PLAIN</span>
+              <audio controls preload="none" src="audio/karim-gptinformal-vits/05.wav"></audio>
+            </div>
+            <div class="model-row ab-diac">
+              <span class="model-name">karim23657 — GPTInformal-Persian VITS — diacritized input</span>
+              <span class="ab-label ab-label-diac">DIAC</span>
+              <audio controls preload="none" src="audio/karim-gptinformal-vits-diac/05.wav"></audio>
+            </div>
           </div>
           <div class="ab-pair">
             <div class="model-row ab-plain">
@@ -682,9 +756,17 @@
               <audio controls preload="none" src="audio/mana-piper-diac/05.wav"></audio>
             </div>
           </div>
-          <div class="model-row">
-            <span class="model-name">IMS-Toucan — ToucanTTS (pes)</span>
-            <audio controls preload="none" src="audio/toucan-persian/05.wav"></audio>
+          <div class="ab-pair">
+            <div class="model-row ab-plain">
+              <span class="model-name">IMS-Toucan — ToucanTTS (pes)</span>
+              <span class="ab-label ab-label-plain">PLAIN</span>
+              <audio controls preload="none" src="audio/toucan-persian/05.wav"></audio>
+            </div>
+            <div class="model-row ab-diac">
+              <span class="model-name">IMS-Toucan — ToucanTTS (pes) — diacritized input</span>
+              <span class="ab-label ab-label-diac">DIAC</span>
+              <audio controls preload="none" src="audio/toucan-persian-diac/05.wav"></audio>
+            </div>
           </div>
           <div class="model-row">
             <span class="model-name">Fish Audio — s2-pro (CPU probe)</span>
