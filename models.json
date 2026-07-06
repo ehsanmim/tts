@@ -12,6 +12,17 @@
       "notes": "Zero-friction setup, no espeak needed. Reads digits one-by-one. Non-commercial license."
     },
     {
+      "id": "mms-tts-fas-diac",
+      "name": "Meta MMS — mms-tts-fas — diacritized input",
+      "hf_url": "https://huggingface.co/facebook/mms-tts-fas",
+      "engine": "🤗 transformers (VITS)",
+      "voice": "single speaker (male-ish)",
+      "sample_rate": 16000,
+      "cpu_rtf": "0.2–0.3",
+      "ab_pair": "mms-tts-fas",
+      "notes": "Same model as mms-tts-fas, fed sentences_diacritized.txt (Full TTS front-end: digits→words, Ezafe kasra, KaamelDict harakat). A/B against mms-tts-fas."
+    },
+    {
       "id": "kamtera-female-vits",
       "name": "Kamtera — persian-tts-female-vits",
       "hf_url": "https://huggingface.co/Kamtera/persian-tts-female-vits",
@@ -22,6 +33,17 @@
       "notes": "Coqui-format VITS. Needs espeak-ng phonemizer; runs in an isolated venv. 24 kHz."
     },
     {
+      "id": "kamtera-female-vits-diac",
+      "name": "Kamtera — persian-tts-female-vits — diacritized input",
+      "hf_url": "https://huggingface.co/Kamtera/persian-tts-female-vits",
+      "engine": "Coqui TTS (VITS) + espeak-ng",
+      "voice": "single female speaker",
+      "sample_rate": 24000,
+      "cpu_rtf": "0.24",
+      "ab_pair": "kamtera-female-vits",
+      "notes": "Same model as kamtera-female-vits, fed sentences_diacritized.txt. espeak-ng re-phonemizes; test whether added harakat helps or hurts G2P. A/B against kamtera-female-vits."
+    },
+    {
       "id": "kamtera-male-vits",
       "name": "Kamtera — persian-tts-male-vits",
       "hf_url": "https://huggingface.co/Kamtera/persian-tts-male-vits",
@@ -30,6 +52,17 @@
       "sample_rate": 22050,
       "cpu_rtf": "0.23",
       "notes": "Coqui-format VITS, male counterpart to the female model. 22.05 kHz."
+    },
+    {
+      "id": "kamtera-male-vits-diac",
+      "name": "Kamtera — persian-tts-male-vits — diacritized input",
+      "hf_url": "https://huggingface.co/Kamtera/persian-tts-male-vits",
+      "engine": "Coqui TTS (VITS) + espeak-ng",
+      "voice": "single male speaker",
+      "sample_rate": 22050,
+      "cpu_rtf": "0.23",
+      "ab_pair": "kamtera-male-vits",
+      "notes": "Same model as kamtera-male-vits, fed sentences_diacritized.txt. espeak-ng re-phonemizes; test whether added harakat helps or hurts G2P. A/B against kamtera-male-vits."
     },
     {
       "id": "karim-gptinformal-vits",
@@ -50,6 +83,17 @@
       "sample_rate": 16000,
       "cpu_rtf": "0.18",
       "notes": "MMS-style VITS finetune loaded via transformers (no espeak). Same code path as mms-tts-fas. 16 kHz."
+    },
+    {
+      "id": "seyedali-mms-diac",
+      "name": "SeyedAli — Persian-Speech-synthesis-MMS — diacritized input",
+      "hf_url": "https://huggingface.co/SeyedAli/Persian-Speech-synthesis-MMS",
+      "engine": "🤗 transformers (VITS)",
+      "voice": "single speaker",
+      "sample_rate": 16000,
+      "cpu_rtf": "0.18",
+      "ab_pair": "seyedali-mms",
+      "notes": "Same model as seyedali-mms, fed sentences_diacritized.txt. Char-level VITS — test whether explicit harakat improves Ezafe and homograph pronunciation. A/B against seyedali-mms."
     },
     {
       "id": "chatterbox-persian",
@@ -80,6 +124,17 @@
       "sample_rate": 22050,
       "cpu_rtf": "~0.03 (very fast)",
       "notes": "Piper voice trained on the curated ManaTTS corpus. Clean pronunciation, deterministic, ~0.2s/sentence on CPU. Ready-made ONNX — trivial to run. MIT."
+    },
+    {
+      "id": "mana-piper-diac",
+      "name": "MahtaFetrat — Mana-Persian-Piper — diacritized input",
+      "hf_url": "https://huggingface.co/MahtaFetrat/Mana-Persian-Piper",
+      "engine": "Piper (VITS, ONNX) + espeak-ng",
+      "voice": "fa_IR-mana-medium (single speaker)",
+      "sample_rate": 22050,
+      "cpu_rtf": "~0.03 (very fast)",
+      "ab_pair": "mana-piper",
+      "notes": "Same model as mana-piper, fed sentences_diacritized.txt. espeak-ng re-phonemizes; test whether added harakat helps or hurts G2P. A/B against mana-piper."
     },
     {
       "id": "toucan-persian",

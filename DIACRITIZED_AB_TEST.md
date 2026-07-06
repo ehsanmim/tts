@@ -82,6 +82,19 @@ For each model in [`models.json`](models.json) that we want to A/B test:
    `chatterbox-persian-ezafe` already apply this front-end internally, so they
    are the existing reference point for "with front-end").
 
+## Status (first 5 models completed)
+
+| Model | Plain audio | Diacritized audio | Notes |
+|-------|------------|-------------------|-------|
+| `mana-piper` | ✅ `docs/audio/mana-piper/` | ✅ `docs/audio/mana-piper-diac/` | espeak-ng re-phonemizes — test whether harakat helps/hurts |
+| `mms-tts-fas` | ✅ `docs/audio/mms-tts-fas/` | ✅ `docs/audio/mms-tts-fas-diac/` | char-level tokenizer — should benefit from explicit harakat |
+| `seyedali-mms` | ✅ `docs/audio/seyedali-mms/` | ✅ `docs/audio/seyedali-mms-diac/` | char-level tokenizer — same code path as mms-tts-fas |
+| `kamtera-female-vits` | ✅ `docs/audio/kamtera-female-vits/` | ✅ `docs/audio/kamtera-female-vits-diac/` | espeak-ng re-phonemizes |
+| `kamtera-male-vits` | ✅ `docs/audio/kamtera-male-vits/` | ✅ `docs/audio/kamtera-male-vits-diac/` | espeak-ng re-phonemizes |
+
+The comparison page (`docs/index.html`) now shows each model as a **PLAIN / DIAC** pair
+(blue row vs green row) for every sentence, so the A/B comparison is one click.
+
 ## Evaluation
 
 Judge each plain vs. `-diac` pair on the criteria already in
